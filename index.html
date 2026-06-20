@@ -1,0 +1,1253 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>VocaTest Perú — Descubre tu vocación real</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+:root{--azul:#0A2463;--azul2:#1B3FA0;--rojo:#D62828;--rojo2:#F77F00;--oro:#FCBF49;--bg:#F8F6F1;--card:#FFFFFF;--text:#0A0A0A;--muted:#666;--border:#E2DDD4;--radius:18px;--radius-sm:10px;}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:'DM Sans',sans-serif;background:var(--bg);color:var(--text);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(circle at 15% 15%,rgba(10,36,99,0.06) 0%,transparent 50%),radial-gradient(circle at 85% 85%,rgba(214,40,40,0.05) 0%,transparent 50%);pointer-events:none;z-index:0;}
+.wrap{position:relative;z-index:1;max-width:620px;margin:0 auto;padding:0 18px 60px;}
+.screen{display:none;}.screen.active{display:block;}
+.hero{padding:48px 0 32px;text-align:center;}
+.hero-flag{display:inline-flex;align-items:center;gap:6px;background:var(--azul);color:white;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;padding:6px 16px;border-radius:20px;margin-bottom:20px;}
+.hero-title{font-family:'Syne',sans-serif;font-size:clamp(36px,8vw,56px);font-weight:800;line-height:1.05;color:var(--azul);margin-bottom:8px;}
+.hero-title span{color:var(--rojo);}
+.hero-sub{font-size:16px;color:var(--muted);line-height:1.6;max-width:440px;margin:0 auto 28px;}
+.hero-stat{display:inline-block;background:var(--rojo);color:white;font-family:'Syne',sans-serif;font-weight:700;font-size:13px;padding:8px 18px;border-radius:var(--radius-sm);margin-bottom:32px;}
+.card{background:var(--card);border-radius:var(--radius);padding:24px;border:1.5px solid var(--border);box-shadow:0 2px 20px rgba(10,36,99,0.06);margin-bottom:16px;}
+.card-blue{background:var(--azul);color:white;border-color:var(--azul);}
+.btn{font-family:'Syne',sans-serif;font-weight:700;font-size:15px;border:none;border-radius:var(--radius-sm);padding:15px 28px;cursor:pointer;transition:transform 0.12s,box-shadow 0.12s;display:block;width:100%;text-align:center;letter-spacing:0.02em;}
+.btn:active{transform:scale(0.98);}
+.btn-primary{background:var(--rojo);color:white;box-shadow:0 4px 18px rgba(214,40,40,0.3);}
+.btn-primary:hover{box-shadow:0 6px 24px rgba(214,40,40,0.42);transform:translateY(-1px);}
+.btn-blue{background:var(--azul);color:white;box-shadow:0 4px 18px rgba(10,36,99,0.25);}
+.btn-blue:hover{box-shadow:0 6px 24px rgba(10,36,99,0.35);transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--azul);border:2px solid var(--azul);font-family:'Syne',sans-serif;font-weight:700;}
+.btn-outline:hover{background:var(--azul);color:white;}
+.label{font-family:'Syne',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);margin-bottom:10px;display:block;}
+.steps{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px;}
+.step{background:var(--bg);border-radius:var(--radius-sm);padding:14px;border:1px solid var(--border);}
+.step-num{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:var(--rojo);margin-bottom:4px;line-height:1;}
+.step-text{font-size:13px;color:var(--muted);line-height:1.5;}
+.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:8px;}
+.profile-btn{background:var(--bg);border:2px solid var(--border);border-radius:var(--radius-sm);padding:18px 14px;cursor:pointer;text-align:center;transition:all 0.15s;}
+.profile-btn:hover,.profile-btn.sel{border-color:var(--azul);background:rgba(10,36,99,0.04);}
+.profile-btn.sel{border-width:2.5px;}
+.profile-icon{font-size:28px;margin-bottom:6px;}
+.profile-label{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--azul);}
+.profile-sub{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4;}
+.prog-wrap{margin-bottom:20px;}
+.prog-meta{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
+.prog-label{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:var(--azul);}
+.prog-count{font-size:12px;color:var(--muted);}
+.prog-bar-bg{background:var(--border);height:6px;border-radius:3px;overflow:hidden;}
+.prog-bar{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--azul),var(--rojo));transition:width 0.4s ease;}
+.phase-hdr{display:flex;align-items:center;gap:12px;margin-bottom:20px;}
+.phase-icon{width:44px;height:44px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.phase-title{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--azul);}
+.phase-sub{font-size:13px;color:var(--muted);margin-top:2px;}
+.q-text{font-family:'Syne',sans-serif;font-weight:700;font-size:clamp(16px,4vw,20px);line-height:1.35;color:var(--text);margin-bottom:20px;}
+.opts{display:flex;flex-direction:column;gap:9px;}
+.opt{font-family:'DM Sans',sans-serif;font-weight:500;font-size:14px;background:var(--bg);border:2px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px;cursor:pointer;text-align:left;transition:all 0.15s;color:var(--text);line-height:1.4;display:flex;align-items:center;gap:12px;}
+.opt-dot{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;transition:all 0.15s;}
+.opt:hover{border-color:var(--azul2);background:rgba(10,36,99,0.03);}
+.opt:hover .opt-dot{border-color:var(--azul2);}
+.opt.sel{border-color:var(--azul);background:rgba(10,36,99,0.05);transform:translateX(4px);}
+.opt.sel .opt-dot{background:var(--azul);border-color:var(--azul);}
+.presion-opts{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.presion-opt{background:var(--bg);border:2px solid var(--border);border-radius:var(--radius-sm);padding:12px;cursor:pointer;text-align:center;transition:all 0.15s;font-size:13px;font-weight:500;color:var(--text);}
+.presion-opt:hover{border-color:var(--rojo);color:var(--rojo);}
+.presion-opt.sel{border-color:var(--rojo);background:rgba(214,40,40,0.05);color:var(--rojo);}
+.loading-screen{text-align:center;padding:80px 20px;}
+.loading-ring{width:64px;height:64px;border-radius:50%;border:4px solid var(--border);border-top-color:var(--azul);animation:spin 0.9s linear infinite;margin:0 auto 20px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-text{font-family:'Syne',sans-serif;font-weight:700;font-size:18px;color:var(--azul);}
+.loading-sub{font-size:14px;color:var(--muted);margin-top:6px;}
+.result-hero{background:var(--azul);border-radius:var(--radius);padding:28px;color:white;margin-bottom:16px;position:relative;overflow:hidden;}
+.result-hero::before{content:'';position:absolute;right:-30px;top:-30px;width:160px;height:160px;border-radius:50%;background:rgba(255,255,255,0.05);}
+.result-hero-label{font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;opacity:0.7;margin-bottom:8px;}
+.result-hero-name{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;margin-bottom:6px;}
+.result-hero-desc{font-size:14px;opacity:0.85;line-height:1.6;}
+.carrera-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:22px;margin-bottom:12px;box-shadow:0 2px 16px rgba(10,36,99,0.05);transition:transform 0.2s;}
+.carrera-card:hover{transform:translateY(-2px);}
+.carrera-rank{font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:0.08em;text-transform:uppercase;margin-bottom:10px;}
+.carrera-name{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;color:var(--azul);margin-bottom:6px;}
+.carrera-match{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+.match-bar-bg{flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;}
+.match-bar{height:100%;border-radius:4px;transition:width 1s ease;}
+.match-pct{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;}
+.carrera-why{background:var(--bg);border-radius:var(--radius-sm);padding:14px;margin-bottom:12px;}
+.carrera-why-title{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--azul);margin-bottom:8px;}
+.why-item{display:flex;gap:8px;margin-bottom:6px;font-size:13px;line-height:1.5;color:var(--muted);}
+.why-item:last-child{margin-bottom:0;}
+.why-dot{color:var(--rojo);font-weight:700;flex-shrink:0;margin-top:1px;}
+.carrera-peru{border-top:1px solid var(--border);padding-top:12px;}
+.carrera-peru-title{font-family:'Syne',sans-serif;font-weight:700;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--muted);margin-bottom:8px;}
+.peru-stat{display:flex;align-items:center;gap:8px;margin-bottom:5px;font-size:13px;}
+.peru-icon{font-size:14px;width:20px;text-align:center;}
+.presion-alert{background:rgba(247,127,0,0.08);border:1.5px solid rgba(247,127,0,0.3);border-radius:var(--radius);padding:20px;margin-bottom:16px;}
+.presion-alert-title{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;color:var(--rojo2);margin-bottom:8px;display:flex;align-items:center;gap:8px;}
+.presion-alert-text{font-size:13px;color:var(--muted);line-height:1.7;}
+.perfil-grid{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px;}
+.perfil-chip{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;padding:6px 14px;border-radius:20px;}
+.btn-row{display:flex;gap:10px;flex-wrap:wrap;}
+.btn-row .btn{flex:1;min-width:140px;}
+.disclaimer{font-size:12px;color:var(--muted);text-align:center;line-height:1.6;padding:16px;background:var(--bg);border-radius:var(--radius-sm);border:1px solid var(--border);margin-top:16px;}
+input[type=text],select{font-family:'DM Sans',sans-serif;font-size:15px;font-weight:500;border:2px solid var(--border);border-radius:var(--radius-sm);padding:12px 16px;width:100%;outline:none;transition:border-color 0.15s;background:white;color:var(--text);margin-bottom:12px;}
+input[type=text]:focus,select:focus{border-color:var(--azul);}
+input::placeholder{color:#BBB;}
+
+/* ── MODAL BIENVENIDA ── */
+.bienvenida-overlay{
+  position:fixed;inset:0;
+  background:rgba(10,36,99,0.55);
+  backdrop-filter:blur(4px);
+  display:flex;align-items:center;justify-content:center;
+  z-index:999;padding:16px;
+  animation:fadeIn 0.4s ease;
+}
+@keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
+.bienvenida-modal{
+  background:var(--card);
+  border-radius:var(--radius);
+  max-width:520px;width:100%;
+  max-height:90vh;overflow-y:auto;
+  box-shadow:0 20px 60px rgba(10,36,99,0.3);
+  animation:slideUp 0.4s ease;
+}
+@keyframes slideUp{from{transform:translateY(30px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+.bienvenida-header{
+  background:linear-gradient(135deg,var(--azul),var(--azul2));
+  padding:24px 24px 20px;
+  border-radius:var(--radius) var(--radius) 0 0;
+  position:relative;
+}
+.bienvenida-close{
+  position:absolute;top:14px;right:14px;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,0.15);
+  border:none;color:white;font-size:16px;
+  cursor:pointer;display:flex;align-items:center;justify-content:center;
+  transition:background 0.15s;
+}
+.bienvenida-close:hover{background:rgba(255,255,255,0.25);}
+.bienvenida-body{padding:20px 24px 24px;}
+.vs-row{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:14px 0;}
+.vs-box{border-radius:var(--radius-sm);padding:14px;}
+.vs-box.malo{background:#FFF0F0;border:1px solid #FFCCCC;}
+.vs-box.bueno{background:#E8F5E9;border:1px solid #A5D6A7;}
+.vs-titulo{font-family:'Syne',sans-serif;font-weight:700;font-size:12px;margin-bottom:8px;text-transform:uppercase;letter-spacing:0.06em;}
+.vs-titulo.malo{color:#C62828;}
+.vs-titulo.bueno{color:#1B5E20;}
+.vs-item{font-size:12px;line-height:1.7;color:var(--muted);}
+.teoria-row{display:flex;align-items:flex-start;gap:10px;margin-bottom:10px;}
+.teoria-icon{width:32px;height:32px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+.teoria-text{font-size:13px;color:var(--muted);line-height:1.5;}
+.teoria-text strong{color:var(--text);}
+.fuente-chip{display:inline-block;background:rgba(10,36,99,0.07);color:var(--azul);border-radius:20px;padding:3px 10px;font-size:11px;font-weight:700;margin:2px;}
+@media(max-width:400px){.steps{grid-template-columns:1fr;}.profile-grid{grid-template-columns:1fr;}.presion-opts{grid-template-columns:1fr;}}
+/* ── FREEMIUM WALL ── */
+.freemium-wall{background:linear-gradient(135deg,var(--azul),var(--azul2));border-radius:var(--radius);padding:28px;color:white;margin-bottom:16px;text-align:center;box-shadow:0 8px 32px rgba(10,36,99,0.3);position:relative;overflow:hidden;}
+.freemium-wall::before{content:'🔒';position:absolute;right:-10px;top:-10px;opacity:0.06;font-size:140px;line-height:1;pointer-events:none;}
+.fw-title{font-family:'Syne',sans-serif;font-weight:800;font-size:22px;margin-bottom:8px;}
+.fw-sub{font-size:14px;opacity:0.85;line-height:1.6;margin-bottom:20px;}
+.fw-preview{background:rgba(255,255,255,0.09);border-radius:var(--radius-sm);padding:14px;margin-bottom:20px;text-align:left;}
+.fw-preview-title{font-family:'Syne',sans-serif;font-weight:700;font-size:10px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.65;margin-bottom:10px;}
+.fw-item{display:flex;align-items:center;gap:8px;font-size:13px;margin-bottom:5px;}
+.fw-item.locked{opacity:0.35;text-decoration:line-through;}
+.btn-unlock{font-family:'Syne',sans-serif;font-weight:800;font-size:15px;background:var(--oro);color:#3A2000;border:none;border-radius:var(--radius-sm);padding:15px 28px;cursor:pointer;width:100%;box-shadow:0 4px 16px rgba(252,191,73,0.4);transition:transform 0.12s;margin-bottom:10px;}
+.btn-unlock:hover{transform:translateY(-1px);}
+.btn-tengo-codigo{font-family:'Syne',sans-serif;font-weight:600;font-size:13px;background:transparent;color:rgba(255,255,255,0.7);border:1.5px solid rgba(255,255,255,0.25);border-radius:var(--radius-sm);padding:10px 20px;cursor:pointer;width:100%;transition:all 0.15s;}
+.btn-tengo-codigo:hover{background:rgba(255,255,255,0.1);color:white;}
+/* CÓDIGO */
+.cod-wrap{background:var(--card);border-radius:var(--radius);padding:24px;border:1.5px solid var(--border);box-shadow:0 2px 20px rgba(10,36,99,0.06);margin-bottom:16px;}
+.cod-title{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--azul);margin-bottom:6px;}
+.cod-sub{font-size:13px;color:var(--muted);margin-bottom:16px;line-height:1.6;}
+.cod-input{font-family:'Syne',sans-serif;font-weight:800;font-size:20px;letter-spacing:0.14em;text-transform:uppercase;text-align:center;border:2.5px solid var(--border);border-radius:var(--radius-sm);padding:14px;width:100%;outline:none;transition:border-color 0.15s;background:var(--bg);color:var(--azul);margin-bottom:8px;}
+.cod-input:focus{border-color:var(--azul);}
+.cod-error{font-size:13px;color:var(--rojo);font-weight:600;margin-bottom:12px;display:none;text-align:center;padding:8px;background:rgba(214,40,40,0.07);border-radius:var(--radius-sm);}
+.cod-ok{font-size:13px;color:#2E7D32;font-weight:600;margin-bottom:12px;display:none;text-align:center;padding:8px;background:rgba(46,125,50,0.07);border-radius:var(--radius-sm);}
+/* PRECIOS */
+.precios-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:16px 0;}
+.precio-opt{background:var(--bg);border:2px solid var(--border);border-radius:var(--radius-sm);padding:16px 12px;text-align:center;cursor:pointer;transition:all 0.15s;position:relative;}
+.precio-opt:hover{border-color:var(--azul);}
+.precio-opt.top{border-color:var(--rojo);background:rgba(214,40,40,0.03);}
+.precio-badge{font-family:'Syne',sans-serif;font-weight:700;font-size:10px;background:var(--rojo);color:white;padding:2px 8px;border-radius:20px;display:inline-block;margin-bottom:6px;}
+.precio-monto{font-family:'Syne',sans-serif;font-weight:800;font-size:24px;color:var(--azul);}
+.precio-label{font-size:11px;color:var(--muted);margin-top:3px;font-weight:600;}
+.precio-items{font-size:12px;color:var(--muted);margin-top:8px;line-height:1.7;text-align:left;}
+/* RESULTADO BASICO */
+.res-basico-card{background:var(--card);border:1.5px solid var(--border);border-radius:var(--radius);padding:20px;margin-bottom:12px;box-shadow:0 2px 16px rgba(10,36,99,0.05);}
+.res-basico-name{font-family:'Syne',sans-serif;font-weight:800;font-size:18px;color:var(--azul);margin-bottom:4px;}
+.res-basico-pct{font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:var(--rojo);}
+.res-basico-blur{filter:blur(4px);pointer-events:none;user-select:none;opacity:0.5;}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- INICIO -->
+<div id="s-inicio" class="screen active">
+  <div class="hero">
+    <div class="hero-flag">🇵🇪 Hecho para el Perú</div>
+    <div class="hero-title">Voca<span>Test</span><br>Perú</div>
+    <div class="hero-sub">Descubre tu vocación real con orientación hacia carreras concretas del mercado peruano — basado en ciencia y datos del MTPE 2024.</div>
+    <div class="hero-stat">⚠️ 7 de cada 10 peruanos trabaja en algo distinto a lo que estudió</div>
+    <button class="btn btn-primary" onclick="goTo('s-perfil')">Comenzar test gratuito →</button>
+  </div>
+  <div class="card">
+    <span class="label">Cómo funciona</span>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div class="step-text">Detectamos presiones externas que nublan tu decisión</div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-text">Test en 4 dimensiones: intereses, habilidades, valores y estilo de vida</div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-text">Motor cruza tu perfil con 50 carreras reales del Perú</div></div>
+      <div class="step"><div class="step-num">04</div><div class="step-text">3 carreras recomendadas con explicación personalizada del porqué</div></div>
+    </div>
+  </div>
+  <div class="card card-blue">
+    <span class="label" style="color:rgba(255,255,255,0.6);">Base científica</span>
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:15px;margin-bottom:8px;">Fundado en teorías reconocidas</div>
+    <div style="font-size:13px;opacity:0.8;line-height:1.8;">Teoría RIASEC de Holland · Desarrollo Vocacional de Super · Datos reales del Ministerio de Trabajo del Perú (MTPE 2024)</div>
+  </div>
+</div>
+
+<!-- PERFIL -->
+<div id="s-perfil" class="screen">
+  <div style="padding-top:32px;"></div>
+  <div class="phase-hdr">
+    <div class="phase-icon" style="background:#EEF2FF;">👤</div>
+    <div><div class="phase-title">Tu perfil</div><div class="phase-sub">Para personalizar el test y los resultados</div></div>
+  </div>
+  <div class="card">
+    <span class="label">¿Cómo te llamas?</span>
+    <input type="text" id="input-nombre" placeholder="Tu nombre" maxlength="30"/>
+    <span class="label">¿En qué ciudad vives?</span>
+    <select id="input-ciudad">
+      <option value="">Selecciona tu ciudad</option>
+      <option>Arequipa</option><option>Lima</option><option>Cusco</option>
+      <option>Trujillo</option><option>Piura</option><option>Chiclayo</option>
+      <option>Iquitos</option><option>Tacna</option><option>Puno</option>
+      <option>Huancayo</option><option>Ica</option><option>Otra ciudad del Perú</option>
+    </select>
+    <span class="label" style="margin-top:4px;">¿En qué momento estás?</span>
+    <div class="profile-grid">
+      <div class="profile-btn" onclick="selPerfil('eligiendo',this)">
+        <div class="profile-icon">🎓</div>
+        <div class="profile-label">Eligiendo carrera</div>
+        <div class="profile-sub">Aún no empiezo y quiero saber qué elegir</div>
+      </div>
+      <div class="profile-btn" onclick="selPerfil('dudando',this)">
+        <div class="profile-icon">🤔</div>
+        <div class="profile-label">Ya estudio pero tengo dudas</div>
+        <div class="profile-sub">Estoy en una carrera pero no estoy seguro/a</div>
+      </div>
+    </div>
+    <button class="btn btn-blue" onclick="irAPresiones()" id="btn-perfil" style="margin-top:16px;opacity:0.5;" disabled>Continuar →</button>
+  </div>
+</div>
+
+<!-- PRESIONES -->
+<div id="s-presiones" class="screen">
+  <div style="padding-top:32px;"></div>
+  <div class="phase-hdr">
+    <div class="phase-icon" style="background:#FFF0E8;">🧭</div>
+    <div><div class="phase-title">Antes del test</div><div class="phase-sub">Identifiquemos qué puede estar influyendo en tu decisión</div></div>
+  </div>
+  <div class="card" style="border-left:4px solid var(--rojo2);">
+    <div style="font-size:14px;color:var(--muted);line-height:1.7;">Muchas personas eligen carrera influenciadas por factores externos sin darse cuenta. Este paso es para tomar conciencia — no es un juicio.</div>
+  </div>
+  <div id="presiones-container"></div>
+  <button class="btn btn-blue" onclick="irATest()" id="btn-presiones" style="opacity:0.5;" disabled>Entendido, comenzar el test →</button>
+</div>
+
+<!-- TEST -->
+<div id="s-test" class="screen">
+  <div style="padding-top:24px;"></div>
+  <div id="test-prog" class="prog-wrap"></div>
+  <div class="card">
+    <div id="test-q-cat" style="margin-bottom:12px;"></div>
+    <div id="test-q-text" class="q-text"></div>
+    <div id="test-opts" class="opts"></div>
+    <button class="btn btn-blue" id="btn-next" onclick="nextTestQ()" style="opacity:0.5;margin-top:16px;" disabled>Siguiente →</button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div id="s-loading" class="screen">
+  <div class="loading-screen">
+    <div class="loading-ring"></div>
+    <div class="loading-text">Analizando tu perfil...</div>
+    <div class="loading-sub" id="loading-sub">Cruzando con datos del mercado peruano</div>
+  </div>
+</div>
+
+
+<!-- RESULTADO FREEMIUM -->
+<div id="s-freemium" class="screen">
+  <div style="padding-top:24px;"></div>
+  <div id="free-basico"></div>
+  <div class="freemium-wall">
+    <div class="fw-title">🔓 Desbloquea tu resultado completo</div>
+    <div class="fw-sub">Completaste el test. Tu perfil está listo — desbloquea el análisis completo para descubrir tu vocación real.</div>
+    <div class="fw-preview">
+      <div class="fw-preview-title">Tu resultado incluye</div>
+      <div class="fw-item">✅ Perfil vocacional RIASEC personalizado</div>
+      <div class="fw-item">✅ 3 carreras recomendadas con % de compatibilidad</div>
+      <div class="fw-item">✅ Explicación del porqué cada carrera encaja contigo</div>
+      <div class="fw-item locked">🔒 Análisis detallado de tus presiones externas</div>
+      <div class="fw-item locked">🔒 Datos reales: vacantes, salarios y universidades en Perú</div>
+      <div class="fw-item locked">🔒 Comparativa de tus 10 carreras más compatibles</div>
+      <div class="fw-item locked">🔒 Consejos personalizados según tu perfil y ciudad</div>
+    </div>
+    <button class="btn-unlock" onclick="goTo('s-pago')">🌟 Ver resultado completo — S/ 4.30</button>
+    <button class="btn-tengo-codigo" onclick="goTo('s-codigo')">Ya tengo un código de acceso</button>
+  </div>
+</div>
+
+<!-- PAGO -->
+<div id="s-pago" class="screen">
+  <div style="padding-top:32px;"></div>
+  <div class="phase-hdr">
+    <div class="phase-icon" style="background:#FFF8E1;">💳</div>
+    <div><div class="phase-title">Desbloquear resultado</div><div class="phase-sub">Pago único — acceso de por vida a tu resultado</div></div>
+  </div>
+  <div class="card">
+    <span class="label">Elige tu plan</span>
+    <div class="precios-grid">
+      <div class="precio-opt">
+        <div class="precio-monto">S/ 4.30</div>
+        <div class="precio-label">Individual</div>
+        <div class="precio-items">✓ Resultado completo<br>✓ 1 usuario<br>✓ Acceso permanente</div>
+      </div>
+      <div class="precio-opt top">
+        <div class="precio-badge">MÁS POPULAR</div>
+        <div class="precio-monto">S/ 14.90</div>
+        <div class="precio-label">Familiar</div>
+        <div class="precio-items">✓ Resultado completo<br>✓ Hasta 5 personas<br>✓ 1 código compartido</div>
+      </div>
+    </div>
+    <div style="background:var(--bg);border-radius:var(--radius-sm);padding:14px;margin-bottom:16px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--azul);margin-bottom:8px;">¿Cómo pagar?</div>
+      <div style="font-size:13px;color:var(--muted);line-height:1.8;">
+        1. Realiza tu pago por <strong style="color:var(--text);">Yape o Plin</strong> al número <strong style="color:var(--azul);">+51 938 396 561</strong><br>
+        2. Envía el comprobante por WhatsApp al mismo número<br>
+        3. Recibirás tu código de acceso en menos de 2 horas<br>
+        4. Ingresa el código aquí y accede a tu resultado completo
+      </div>
+    </div>
+    <button class="btn btn-primary" onclick="goTo('s-codigo')" style="margin-bottom:10px;">Ya pagué — ingresar mi código →</button>
+    <button class="btn btn-outline" onclick="goTo('s-freemium')">← Volver</button>
+  </div>
+  <div style="text-align:center;font-size:12px;color:var(--muted);margin-top:8px;">¿Eres de un colegio o institución? <a href="#" onclick="goTo('s-codigo');return false;" style="color:var(--azul);font-weight:600;">Ingresa tu código institucional</a></div>
+</div>
+
+<!-- CÓDIGO DE ACCESO -->
+<div id="s-codigo" class="screen">
+  <div style="padding-top:32px;"></div>
+  <div class="phase-hdr">
+    <div class="phase-icon" style="background:#EEF2FF;">🔑</div>
+    <div><div class="phase-title">Código de acceso</div><div class="phase-sub">Registra tus datos y desbloquea tu resultado</div></div>
+  </div>
+
+  <!-- AVISO DE REGISTRO -->
+  <div style="background:#FFF8E1;border:1.5px solid #F9A825;border-radius:var(--radius-sm);padding:14px 16px;margin-bottom:16px;">
+    <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#7A5000;margin-bottom:4px;">¿Por qué pedimos tus datos?</div>
+    <div style="font-size:13px;color:#7A5000;line-height:1.6;">Para garantizar que cada código sea usado por la persona que lo adquirió. Tus datos son confidenciales y no serán compartidos con terceros.</div>
+  </div>
+
+  <div class="cod-wrap">
+    <span class="label">Tu nombre completo</span>
+    <input type="text" id="cod-nombre" placeholder="Ej: María García López" maxlength="60" style="margin-bottom:12px;text-transform:capitalize;"/>
+
+    <span class="label">Tu correo electrónico</span>
+    <input type="email" id="cod-correo" placeholder="Ej: maria@gmail.com" maxlength="80" style="margin-bottom:12px;"/>
+
+    <span class="label">Tu código de acceso</span>
+    <input type="text" class="cod-input" id="cod-input" placeholder="XXXXXXXX" maxlength="20" oninput="this.value=this.value.toUpperCase()"/>
+
+    <div class="cod-error" id="cod-error">❌ Código incorrecto. Verifica e intenta de nuevo.</div>
+    <div id="cod-error-campos" style="font-size:13px;color:var(--rojo);font-weight:600;margin-bottom:12px;display:none;text-align:center;padding:8px;background:rgba(214,40,40,0.07);border-radius:var(--radius-sm);">⚠️ Por favor completa todos los campos antes de continuar.</div>
+    <div class="cod-ok" id="cod-ok">✅ ¡Código válido! Cargando tu resultado...</div>
+
+    <button class="btn btn-blue" onclick="validarCodigo()">Desbloquear resultado →</button>
+    <div style="margin-top:12px;text-align:center;">
+      <button style="background:none;border:none;color:var(--muted);font-size:13px;cursor:pointer;" onclick="goTo('s-pago')">¿No tienes código? Ver opciones de pago</button>
+    </div>
+  </div>
+</div>
+
+<!-- RESULTADO -->
+<div id="s-resultado" class="screen">
+  <div style="padding-top:24px;"></div>
+  <div id="res-content"></div>
+  <div class="disclaimer">VocaTest Perú se basa en la teoría RIASEC de Holland y datos del MTPE 2024. Es una herramienta de orientación, no reemplaza el acompañamiento profesional personalizado.</div>
+  <div class="btn-row" style="margin-top:16px;">
+    <button class="btn btn-outline" onclick="resetAll()">Hacer el test de nuevo</button>
+    <button class="btn btn-primary" onclick="compartir()">Compartir resultado</button>
+  </div>
+</div>
+
+</div>
+
+<script>
+let U={nombre:'',ciudad:'',perfil:'',presiones:{},scores:{R:0,I:0,A:0,S:0,E:0,C:0}};
+let perfilSel='',presionesIdx=0,testQIdx=0,testSelOpt=null;
+
+const PRESIONES_QS=[
+  {id:'familiar',q:'¿Alguien en tu familia tiene expectativas sobre qué deberías estudiar o trabajar?',
+   opts:['No, tengo total libertad','Sí, hay una carrera que esperan de mí','Hay presión pero no muy fuerte','Es un tema de conflicto en mi familia']},
+  {id:'economica',q:'¿El factor económico está influyendo mucho en tu decisión de carrera?',
+   opts:['No mucho, tengo opciones','Sí, debo elegir algo que genere dinero rápido','Me preocupa pero no es lo principal','Es el factor más importante para mí']},
+  {id:'social',q:'¿Hay carreras que consideras porque están de moda o son bien vistas socialmente?',
+   opts:['No, elijo por gusto propio','Sí, me importa el prestigio','Un poco, pero no es determinante','No lo había pensado, puede que sí']},
+  {id:'descartada',q:'¿Has descartado alguna carrera que te gustaría estudiar por miedo, presión o limitaciones?',
+   opts:['No, tengo todo abierto','Sí, hay algo que me gustaría pero no me permito','Tal vez, no estoy seguro/a','Sí y ya lo acepté']},
+];
+
+const TEST_QS=[
+  // ── INTERESES (13)
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Qué tipo de actividad disfrutas más en tu tiempo libre?',
+   opts:[{t:'Arreglar, construir o trabajar con mis manos',v:{R:3}},{t:'Investigar, leer o analizar información',v:{I:3}},{t:'Crear: dibujar, escribir, música o diseño',v:{A:3}},{t:'Ayudar, escuchar o trabajar con personas',v:{S:3}},{t:'Organizar proyectos, liderar o convencer',v:{E:3}},{t:'Ordenar, sistematizar o trabajar con datos',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Qué materia del colegio te ha gustado más?',
+   opts:[{t:'Física, educación física o talleres técnicos',v:{R:3}},{t:'Ciencias, matemática o química',v:{I:3}},{t:'Arte, comunicación, literatura o música',v:{A:3}},{t:'Historia, psicología o ciencias sociales',v:{S:3}},{t:'Economía, administración o emprendimiento',v:{E:3}},{t:'Contabilidad, informática o estadística',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Cómo pasarías un día ideal de trabajo?',
+   opts:[{t:'Al aire libre o con herramientas y equipos',v:{R:3}},{t:'Leyendo, analizando datos o en laboratorio',v:{I:3}},{t:'Creando algo desde cero: diseño, escritura, arte',v:{A:3}},{t:'Atendiendo personas, enseñando o apoyando',v:{S:3}},{t:'Negociando, dirigiendo un equipo o emprendiendo',v:{E:3}},{t:'Organizando procesos, documentos o cuentas',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Qué tipo de contenido consumes más en internet?',
+   opts:[{t:'Tutoriales técnicos, mecánica o construcción',v:{R:3}},{t:'Ciencia, documentales o investigación',v:{I:3}},{t:'Arte, diseño, moda, cine o música',v:{A:3}},{t:'Temas sociales, salud mental, relaciones',v:{S:3}},{t:'Negocios, emprendimiento, finanzas, liderazgo',v:{E:3}},{t:'Noticias, economía, datos o productividad',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Qué tipo de problema disfrutas resolver?',
+   opts:[{t:'Problemas físicos o técnicos: arreglar, construir',v:{R:3}},{t:'Problemas complejos que requieren investigar',v:{I:3}},{t:'Problemas creativos: diseño, expresión',v:{A:3}},{t:'Problemas humanos: conflictos, bienestar',v:{S:3}},{t:'Problemas de gestión: organizar y liderar',v:{E:2,C:1}},{t:'Problemas de precisión: cálculos y datos',v:{C:2,I:1}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Qué actividad harías aunque no te pagaran?',
+   opts:[{t:'Construir o reparar algo con mis manos',v:{R:3}},{t:'Investigar y aprender algo nuevo y profundo',v:{I:3}},{t:'Crear contenido, arte o diseño',v:{A:3}},{t:'Voluntariado, enseñar o apoyar a otros',v:{S:3}},{t:'Montar un negocio o proyecto propio',v:{E:3}},{t:'Organizar eventos, sistemas o bases de datos',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Qué género de película o serie prefieres?',
+   opts:[{t:'Acción, aventura o supervivencia',v:{R:2,E:1}},{t:'Ciencia ficción, documentales o misterio intelectual',v:{I:3}},{t:'Drama de autor, animación o series creativas',v:{A:3}},{t:'Historias humanas, dramas sociales',v:{S:3}},{t:'Thrillers de negocios, política o liderazgo',v:{E:3}},{t:'Espionaje, crimen organizado, estrategia',v:{C:2,I:1}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Cuál de estos proyectos elegirías?',
+   opts:[{t:'Diseñar y construir algo físico: máquina o estructura',v:{R:3}},{t:'Hacer una investigación científica o análisis profundo',v:{I:3}},{t:'Crear una obra artística o campaña visual',v:{A:3}},{t:'Organizar un programa de ayuda a la comunidad',v:{S:3}},{t:'Lanzar un negocio o producto al mercado',v:{E:3}},{t:'Crear un sistema de gestión o base de datos',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'Cuando eras niño/a, ¿a qué jugabas o qué te apasionaba?',
+   opts:[{t:'Armar cosas, legos, herramientas o mecánica',v:{R:3}},{t:'Experimentos, ciencia, puzzles o juegos de estrategia',v:{I:3}},{t:'Dibujar, actuar, bailar o inventar historias',v:{A:3}},{t:'Jugar con otros, cuidar animales o ayudar en casa',v:{S:3}},{t:'Vender, organizar, liderar juegos o tener mi negocio',v:{E:3}},{t:'Coleccionar, ordenar o tener todo clasificado',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'Si pudieras ser voluntario/a en algo, ¿qué elegirías?',
+   opts:[{t:'Construir casas o infraestructura para comunidades',v:{R:3}},{t:'Enseñar ciencia o matemática a jóvenes',v:{I:2,S:1}},{t:'Enseñar arte, música o teatro',v:{A:2,S:1}},{t:'Apoyo emocional, salud mental o trabajo social',v:{S:3}},{t:'Emprendimiento juvenil o desarrollo de negocios locales',v:{E:3}},{t:'Organizar archivos, contabilidad o administración de ONG',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Cuál de estos temas te generaría más curiosidad para estudiar por tu cuenta?',
+   opts:[{t:'Cómo funcionan las máquinas, los motores o la electrónica',v:{R:3}},{t:'Cómo funciona el universo, el cuerpo humano o los ecosistemas',v:{I:3}},{t:'Historia del arte, música, cine o literatura',v:{A:3}},{t:'Psicología humana, comportamiento social o culturas',v:{S:3}},{t:'Cómo crear empresas, invertir o generar riqueza',v:{E:3}},{t:'Economía, estadística, derecho o administración pública',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Qué harías si tuvieras un mes libre y dinero suficiente?',
+   opts:[{t:'Construir o arreglar algo en casa o taller propio',v:{R:3}},{t:'Estudiar un tema que siempre me ha intrigado',v:{I:3}},{t:'Crear: escribir un libro, grabar música o hacer arte',v:{A:3}},{t:'Viajar para conocer personas y culturas distintas',v:{S:2,A:1}},{t:'Lanzar un emprendimiento o proyecto de negocios',v:{E:3}},{t:'Organizar mis finanzas, estudiar inversiones o planificar mi futuro',v:{C:3}}]},
+  {dim:'intereses',cat:'🎯 Intereses',q:'¿Qué tipo de noticias o temas te hacen detenerte a leer más?',
+   opts:[{t:'Tecnología, ingeniería, construcción o innovación técnica',v:{R:2,I:1}},{t:'Ciencia, medicina, descubrimientos o investigaciones',v:{I:3}},{t:'Cultura, arte, cine, música o tendencias creativas',v:{A:3}},{t:'Derechos humanos, salud mental, educación o sociedad',v:{S:3}},{t:'Economía, emprendimiento, startups o mercados',v:{E:3}},{t:'Política, leyes, finanzas o gestión pública',v:{C:2,I:1}}]},
+  // ── HABILIDADES (13)
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿En qué eres bueno/a sin esforzarte demasiado?',
+   opts:[{t:'Trabajo manual, coordinación o habilidades técnicas',v:{R:3}},{t:'Analizar, resolver problemas lógicos o matemáticos',v:{I:3}},{t:'Crear, expresarme visualmente o comunicar ideas',v:{A:3}},{t:'Escuchar, empatizar y conectar con las personas',v:{S:3}},{t:'Convencer, liderar y motivar a otros',v:{E:3}},{t:'Organizar, planificar y ser preciso/a',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Qué rol tomas naturalmente cuando trabajas en grupo?',
+   opts:[{t:'El que ejecuta y construye las cosas',v:{R:3}},{t:'El que investiga y aporta conocimiento',v:{I:3}},{t:'El que propone ideas creativas y originales',v:{A:3}},{t:'El que integra al grupo y mantiene el ambiente',v:{S:3}},{t:'El líder que organiza y toma decisiones',v:{E:3}},{t:'El que registra y asegura que todo esté en orden',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Cómo aprendes mejor?',
+   opts:[{t:'Practicando con las manos, ensayo y error',v:{R:3}},{t:'Leyendo, analizando y entendiendo el fondo',v:{I:3}},{t:'Experimentando y explorando de forma libre',v:{A:3}},{t:'Conversando, en grupos o con un mentor',v:{S:3}},{t:'Tomando la iniciativa y aprendiendo al hacer',v:{E:3}},{t:'Con estructura, pasos claros y ejemplos ordenados',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Cómo te ven los demás?',
+   opts:[{t:'Hábil, práctico/a, concreto/a',v:{R:3}},{t:'Inteligente, analítico/a, curioso/a',v:{I:3}},{t:'Creativo/a, original, expresivo/a',v:{A:3}},{t:'Empático/a, buen oyente, comprensivo/a',v:{S:3}},{t:'Líder, persuasivo/a, seguro/a de sí mismo/a',v:{E:3}},{t:'Organizado/a, responsable, detallista',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿En qué tipo de tarea rindes mejor?',
+   opts:[{t:'Tareas físicas, manuales o de campo',v:{R:3}},{t:'Tareas de investigación, análisis o cálculo',v:{I:3}},{t:'Tareas abiertas, sin estructura fija, creativas',v:{A:3}},{t:'Tareas de comunicación, enseñanza o atención',v:{S:3}},{t:'Tareas de dirección, negociación o ventas',v:{E:3}},{t:'Tareas de control, revisión o administración',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'Si tuvieras que enseñarle algo a alguien, ¿qué enseñarías?',
+   opts:[{t:'Una habilidad técnica o manual',v:{R:3}},{t:'Ciencia, matemática o pensamiento crítico',v:{I:3}},{t:'Arte, diseño, escritura o expresión creativa',v:{A:3}},{t:'Habilidades sociales, comunicación o bienestar',v:{S:3}},{t:'Cómo emprender o desarrollarse profesionalmente',v:{E:3}},{t:'Organización, finanzas personales o productividad',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'Ante un problema difícil, ¿cómo reaccionas?',
+   opts:[{t:'Busco solución práctica e inmediata',v:{R:3}},{t:'Investigo a fondo antes de actuar',v:{I:3}},{t:'Pienso alternativas creativas fuera de lo común',v:{A:3}},{t:'Consulto a otros y busco apoyo colaborativo',v:{S:3}},{t:'Tomo el liderazgo y decido rápido',v:{E:3}},{t:'Sigo un proceso ordenado y metódico',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Qué feedback recibes con más frecuencia?',
+   opts:[{t:'"Eres muy hábil con las manos o muy práctico"',v:{R:3}},{t:'"Eres muy inteligente y analítico"',v:{I:3}},{t:'"Eres muy creativo y original"',v:{A:3}},{t:'"Eres muy empático y sabes escuchar"',v:{S:3}},{t:'"Tienes dotes de líder y sabes convencer"',v:{E:3}},{t:'"Eres muy organizado y confiable"',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Qué haces cuando alguien te pide ayuda?',
+   opts:[{t:'Ayudo con algo físico o práctico — lo hago yo mismo',v:{R:3}},{t:'Investigo y le explico con toda la información posible',v:{I:3}},{t:'Busco una solución creativa y original al problema',v:{A:3}},{t:'Lo escucho primero y ofrezco apoyo emocional',v:{S:3}},{t:'Tomo el control y organizo cómo resolver la situación',v:{E:3}},{t:'Le doy pasos ordenados y claros para resolverlo',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Cuándo te sientes más en tu elemento?',
+   opts:[{t:'Cuando estoy haciendo algo con las manos o en movimiento',v:{R:3}},{t:'Cuando estoy resolviendo algo intelectualmente desafiante',v:{I:3}},{t:'Cuando estoy creando algo desde cero sin límites',v:{A:3}},{t:'Cuando estoy ayudando a alguien que lo necesita',v:{S:3}},{t:'Cuando estoy liderando, convenciendo o tomando decisiones',v:{E:3}},{t:'Cuando todo está ordenado, claro y bajo control',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Cómo te desempeñas bajo presión?',
+   opts:[{t:'Me activo y entro en modo acción físico',v:{R:3}},{t:'Analizo con calma todos los datos antes de actuar',v:{I:3}},{t:'Genero ideas rápidas e inesperadas bajo presión',v:{A:3}},{t:'Me preocupa el impacto en las personas del equipo',v:{S:3}},{t:'Tomo el control y organizo rápidamente la situación',v:{E:3}},{t:'Sigo el proceso establecido paso a paso sin improvisar',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Qué tipo de inteligencia crees que tienes más desarrollada?',
+   opts:[{t:'Cinestésica — aprendo y me expreso con el cuerpo y las manos',v:{R:3}},{t:'Lógico-matemática — razonamiento abstracto y análisis',v:{I:3}},{t:'Visual-espacial o musical — pienso en imágenes y patrones creativos',v:{A:3}},{t:'Interpersonal — entiendo y me conecto con las personas',v:{S:3}},{t:'Lingüística y persuasiva — comunico y convenzo con facilidad',v:{E:2,A:1}},{t:'Intrapersonal y sistemática — me entiendo a mí mismo y organizo bien',v:{C:3}}]},
+  {dim:'habilidades',cat:'💪 Habilidades',q:'¿Qué tarea completarías más rápido y con menos errores?',
+   opts:[{t:'Reparar un equipo, armar un mueble o instalar algo',v:{R:3}},{t:'Analizar un conjunto de datos o resolver un problema matemático',v:{I:3}},{t:'Diseñar un afiche, escribir un texto o crear contenido',v:{A:3}},{t:'Mediar un conflicto o dar orientación a alguien',v:{S:3}},{t:'Presentar una propuesta y convencer a un cliente',v:{E:3}},{t:'Organizar una base de datos, archivo o informe contable',v:{C:3}}]},
+  // ── VALORES (12)
+  {dim:'valores',cat:'❤️ Valores',q:'¿Qué es lo más importante para ti en un trabajo?',
+   opts:[{t:'Ver resultados concretos y tangibles',v:{R:3}},{t:'Aprender constantemente y desarrollar conocimiento',v:{I:3}},{t:'Expresarme y tener libertad creativa',v:{A:3}},{t:'Ayudar a otros y tener impacto humano',v:{S:3}},{t:'Ganar bien, crecer y tener reconocimiento',v:{E:3}},{t:'Estabilidad, seguridad y claridad en mis funciones',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Cuál de estos logros te haría sentir más realizado/a?',
+   opts:[{t:'Construir o crear algo físico que dure en el tiempo',v:{R:3}},{t:'Hacer un descubrimiento importante o publicar un estudio',v:{I:3}},{t:'Crear una obra que emocione o inspire a muchos',v:{A:3}},{t:'Cambiar positivamente la vida de muchas personas',v:{S:3}},{t:'Construir una empresa exitosa o ser líder reconocido',v:{E:3}},{t:'Ser el experto de confianza en mi área',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Qué te generaría más frustración en un trabajo?',
+   opts:[{t:'Estar sentado todo el día sin hacer nada físico',v:{R:3}},{t:'No poder aprender ni crecer intelectualmente',v:{I:3}},{t:'Seguir reglas estrictas sin poder ser creativo',v:{A:3}},{t:'No tener contacto humano ni poder ayudar a nadie',v:{S:3}},{t:'No tener autonomía ni posibilidad de crecer',v:{E:3}},{t:'Desorden, improvisación constante e inestabilidad',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Cuál de estas frases te representa más?',
+   opts:[{t:'"Prefiero hacer las cosas que hablar de ellas"',v:{R:3}},{t:'"Siempre quiero entender el porqué de todo"',v:{I:3}},{t:'"Necesito expresarme y dejar mi huella"',v:{A:3}},{t:'"Lo más valioso es el impacto en las personas"',v:{S:3}},{t:'"Quiero construir algo propio y ser independiente"',v:{E:3}},{t:'"Valoro el orden, la precisión y hacer bien mi trabajo"',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Qué tipo de reconocimiento te importa más?',
+   opts:[{t:'Que reconozcan mi destreza y habilidad técnica',v:{R:3}},{t:'Que reconozcan mi inteligencia y conocimiento',v:{I:3}},{t:'Que admiren mi creatividad y originalidad',v:{A:3}},{t:'Que valoren mi compromiso con las personas',v:{S:3}},{t:'Que reconozcan mi liderazgo y resultados',v:{E:3}},{t:'Que confíen en mi profesionalismo y precisión',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Cómo quieres que te recuerden en tu vida profesional?',
+   opts:[{t:'Como alguien que construyó cosas importantes',v:{R:3}},{t:'Como alguien que generó conocimiento valioso',v:{I:3}},{t:'Como alguien que dejó una obra que perduró',v:{A:3}},{t:'Como alguien que ayudó a muchas personas',v:{S:3}},{t:'Como alguien que lideró y creó oportunidades',v:{E:3}},{t:'Como alguien confiable, preciso y profesional',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Qué es más importante para ti en la vida?',
+   opts:[{t:'La libertad de movimiento y hacer cosas concretas',v:{R:2,A:1}},{t:'El conocimiento y la comprensión del mundo',v:{I:3}},{t:'La belleza, la expresión y la creatividad',v:{A:3}},{t:'Las relaciones humanas y el bienestar colectivo',v:{S:3}},{t:'El éxito, el crecimiento y la independencia',v:{E:3}},{t:'La seguridad, el orden y la estabilidad',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Preferirías trabajar en qué tipo de organización?',
+   opts:[{t:'Campo, fábrica, obra o empresa técnica',v:{R:3}},{t:'Universidad, centro de investigación o laboratorio',v:{I:3}},{t:'Agencia creativa, medios, cine o cultura',v:{A:3}},{t:'ONG, hospital, colegio o institución social',v:{S:3}},{t:'Empresa propia, startup o empresa competitiva',v:{E:3}},{t:'Banco, empresa del Estado, contabilidad o auditoría',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Qué defines como "éxito profesional"?',
+   opts:[{t:'Dominar completamente mi oficio o habilidad técnica',v:{R:3}},{t:'Ser reconocido como experto o referente en mi campo',v:{I:3}},{t:'Que mi obra o creación trascienda y perdure',v:{A:3}},{t:'Saber que cambié positivamente la vida de personas',v:{S:3}},{t:'Independencia económica y reconocimiento como líder',v:{E:3}},{t:'Estabilidad, buen sueldo y carrera sólida sin sobresaltos',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Cuánto te importa contribuir a la sociedad con tu trabajo?',
+   opts:[{t:'Mucho — quiero construir cosas que beneficien a todos',v:{R:2,S:1}},{t:'Mucho — quiero generar conocimiento que avance a la humanidad',v:{I:3}},{t:'Mucho — quiero crear belleza o inspirar con mi trabajo',v:{A:3}},{t:'Es lo más importante para mí — el servicio es mi vocación',v:{S:3}},{t:'Quiero generar riqueza y empleo para otros',v:{E:3}},{t:'Me importa ser confiable y hacer bien mi función',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Qué harías si tu trabajo actual no tuviera sentido para ti?',
+   opts:[{t:'Buscaría algo donde pueda trabajar con mis manos o en campo',v:{R:3}},{t:'Estudiaría o investigaría para encontrar algo que me apasione intelectualmente',v:{I:3}},{t:'Emprendería algo creativo aunque sea más riesgoso',v:{A:3}},{t:'Buscaría un trabajo donde pueda ayudar directamente a personas',v:{S:3}},{t:'Montaría mi propio negocio para tener control total',v:{E:3}},{t:'Esperaría con calma una mejor oportunidad estable',v:{C:3}}]},
+  {dim:'valores',cat:'❤️ Valores',q:'¿Cómo defines una "buena vida" profesional?',
+   opts:[{t:'Hacer algo físico que me deje cansado con satisfacción',v:{R:3}},{t:'Aprender siempre, investigar y resolver problemas complejos',v:{I:3}},{t:'Crear libremente y dejar una obra que inspire',v:{A:3}},{t:'Servir a otros y saber que importo en sus vidas',v:{S:3}},{t:'Crecer, ganar bien y tener mi propia empresa',v:{E:3}},{t:'Tener estabilidad, rutina sana y trabajo bien hecho',v:{C:3}}]},
+  // ── ESTILO DE VIDA (12)
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Cómo imaginas tu vida laboral ideal?',
+   opts:[{t:'Trabajo físico, al aire libre o en campo',v:{R:3}},{t:'Trabajo intelectual con autonomía para investigar',v:{I:3}},{t:'Trabajo flexible, sin horario fijo, con libertad',v:{A:3}},{t:'Trabajo con personas, en equipo o atendiendo',v:{S:3}},{t:'Trabajo dinámico, con viajes, reuniones y retos',v:{E:3}},{t:'Trabajo estable, en oficina, con rutina clara',v:{C:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Qué entorno de trabajo prefieres?',
+   opts:[{t:'Al aire libre, en obra, en campo o en taller',v:{R:3}},{t:'Laboratorio, biblioteca o espacio de análisis',v:{I:3}},{t:'Estudio creativo, espacio abierto e inspirador',v:{A:3}},{t:'Oficina abierta con mucho contacto con personas',v:{S:3}},{t:'Espacios diversos: reuniones, viajes, presentaciones',v:{E:3}},{t:'Oficina ordenada, con estructura y privacidad',v:{C:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Cuál es tu relación ideal con el dinero y el trabajo?',
+   opts:[{t:'Ganar bien haciendo algo concreto y técnico',v:{R:2,C:1}},{t:'Ganar bien siendo especialista reconocido',v:{I:3}},{t:'Priorizo la satisfacción creativa sobre el salario',v:{A:3}},{t:'Prefiero vocación de servicio aunque no sea el mejor salario',v:{S:3}},{t:'Quiero ganar mucho y tener libertad financiera',v:{E:3}},{t:'Prefiero estabilidad y sueldo seguro',v:{C:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Cuánto te importa la estabilidad laboral?',
+   opts:[{t:'Mucho — necesito saber que tengo trabajo seguro',v:{C:3,S:1}},{t:'Bastante — pero también quiero crecer',v:{I:2,E:1}},{t:'Regular — acepto riesgos si hay crecimiento',v:{E:3}},{t:'Poco — prefiero libertad aunque haya incertidumbre',v:{A:3}},{t:'No me preocupa — confío en mis habilidades',v:{R:2,E:1}},{t:'Lo que más quiero es hacer algo con propósito',v:{S:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Cómo te ves en 10 años?',
+   opts:[{t:'Siendo experto técnico o maestro en un oficio',v:{R:3}},{t:'Siendo especialista o investigador reconocido',v:{I:3}},{t:'Siendo creador con audiencia o impacto cultural',v:{A:3}},{t:'Trabajando en algo que ayude directamente a personas',v:{S:3}},{t:'Dirigiendo mi propia empresa o siendo ejecutivo',v:{E:3}},{t:'Siendo profesional estable y experto en mi campo',v:{C:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Cuál es tu actitud frente al riesgo?',
+   opts:[{t:'Prefiero lo seguro y probado',v:{C:3,R:1}},{t:'Acepto riesgos calculados con buena información',v:{I:2,E:1}},{t:'Me gustan los retos y el cambio constante',v:{E:3}},{t:'El riesgo no me importa si hay creatividad',v:{A:3}},{t:'Prefiero ambientes humanos aunque sean exigentes',v:{S:3}},{t:'Acepto riesgos físicos pero no financieros',v:{R:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Qué tan importante es el equilibrio vida-trabajo?',
+   opts:[{t:'Muy importante — mi vida personal es primero',v:{S:2,A:1}},{t:'Importante, pero me apasiona lo que hago',v:{I:2,A:1}},{t:'Acepto sacrificar tiempo si el proyecto me motiva',v:{E:3}},{t:'Prefiero un trabajo con horario claro y definido',v:{C:3}},{t:'Me da igual si el trabajo es en lo que creo',v:{S:2,R:1}},{t:'Quiero total flexibilidad para mi estilo de vida',v:{A:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Cuándo y dónde te gustaría trabajar?',
+   opts:[{t:'Horario fijo, lugar fijo — me da seguridad',v:{C:3}},{t:'Horario flexible pero lugar fijo',v:{I:2,S:1}},{t:'Total libertad — trabajo desde cualquier lugar',v:{A:3,E:1}},{t:'En campo, obra o lugar de trabajo físico',v:{R:3}},{t:'Donde haya personas e impacto social',v:{S:3}},{t:'En reuniones, viajes y espacios dinámicos',v:{E:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Cómo quieres que sea tu relación con tus colegas o equipo?',
+   opts:[{t:'Poca interacción — prefiero trabajar solo/a o en campo',v:{R:3}},{t:'Colaboración intelectual con personas muy especializadas',v:{I:3}},{t:'Ambiente creativo, libre, sin jerarquías rígidas',v:{A:3}},{t:'Equipo humano, unido, donde todos se apoyen',v:{S:3}},{t:'Equipo que yo pueda liderar y llevar al éxito',v:{E:3}},{t:'Equipo ordenado, profesional y con roles claros',v:{C:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Qué te motivaría más a levantarte cada mañana a trabajar?',
+   opts:[{t:'Saber que voy a construir o reparar algo concreto',v:{R:3}},{t:'Saber que voy a aprender o resolver algo intelectualmente estimulante',v:{I:3}},{t:'Saber que voy a crear algo nuevo y expresarme',v:{A:3}},{t:'Saber que voy a ayudar a alguien que lo necesita',v:{S:3}},{t:'Saber que estoy construyendo mi propio camino y creciendo',v:{E:3}},{t:'Saber que tengo todo bajo control y mi trabajo será impecable',v:{C:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Prefieres trabajar con resultados a corto o largo plazo?',
+   opts:[{t:'Corto plazo — ver el resultado inmediato de lo que hago',v:{R:3,E:1}},{t:'Largo plazo — proyectos de investigación o desarrollo profundo',v:{I:3}},{t:'Depende del proyecto creativo — a veces corto, a veces largo',v:{A:3}},{t:'Prefiero procesos continuos de acompañamiento a personas',v:{S:3}},{t:'Corto plazo con metas claras y crecimiento rápido',v:{E:3}},{t:'Largo plazo con planificación detallada y resultados seguros',v:{C:3}}]},
+  {dim:'estilo',cat:'🌱 Estilo de vida',q:'¿Cuánto te importa la independencia en tu trabajo?',
+   opts:[{t:'Mucho — prefiero trabajar solo/a o ser independiente',v:{R:3,A:1}},{t:'Mucho — necesito autonomía para investigar y pensar libremente',v:{I:3}},{t:'Es fundamental — sin libertad no puedo crear',v:{A:3}},{t:'Regular — prefiero equipo aunque tenga algo de autonomía',v:{S:3}},{t:'Mucho — quiero dirigir mi propio camino y empresa',v:{E:3}},{t:'Poco — prefiero seguir procesos claros dentro de una institución',v:{C:3}}]},
+];
+
+// ══ 50 CARRERAS ══
+const CARRERAS=[
+  // INGENIERÍA Y TECNOLOGÍA
+  {nombre:'Ingeniería de Sistemas',area:'Ingeniería y Tecnología',emoji:'💻',tipos:{R:1,I:3,A:1,S:1,E:2,C:2},
+   por_que:['Tu perfil analítico e investigador encaja con resolver problemas lógicos y técnicos','Combina pensamiento abstracto con resultados concretos y aplicables','Alta demanda en todos los sectores del mercado peruano'],
+   peru:{vacantes:'3,632 vacantes activas (MTPE 2024)',salario:'S/ 4,000 – S/ 8,100',universidades:['UNI','UNSA','PUCP','UTP','Tecsup'],sector:'Tecnología, banca, minería, retail, gobierno'}},
+  {nombre:'Ingeniería Civil',area:'Ingeniería y Tecnología',emoji:'🏗️',tipos:{R:3,I:2,A:1,S:1,E:2,C:2},
+   por_que:['Combina trabajo práctico con conocimiento técnico avanzado','Perú tiene una enorme brecha de infraestructura que genera alta demanda sostenida','Tu perfil realista y estructurado encaja con el diseño y la construcción'],
+   peru:{vacantes:'1,545 vacantes activas (MTPE 2024)',salario:'S/ 4,000 – S/ 9,000',universidades:['UNI','UNSA','PUCP','UCSM','UPC'],sector:'Construcción, minería, gobierno, consultorías'}},
+  {nombre:'Ingeniería Industrial',area:'Ingeniería y Tecnología',emoji:'⚙️',tipos:{R:2,I:2,A:0,S:1,E:2,C:3},
+   por_que:['Combina análisis de sistemas, eficiencia y organización de procesos','Tu perfil ordenado y analítico encaja con optimizar operaciones','Segunda carrera más demandada del Perú'],
+   peru:{vacantes:'2,515 vacantes activas (MTPE 2024)',salario:'S/ 3,500 – S/ 8,000',universidades:['UNI','PUCP','UNSA','UPC','USIL'],sector:'Manufactura, minería, logística, consultoría'}},
+  {nombre:'Ingeniería Mecánica',area:'Ingeniería y Tecnología',emoji:'🔧',tipos:{R:3,I:2,A:1,S:0,E:1,C:2},
+   por_que:['Tu habilidad práctica y pensamiento técnico son el corazón de esta carrera','Perú necesita ingenieros mecánicos en minería e industria','Combina trabajo físico con conocimiento científico profundo'],
+   peru:{vacantes:'Alta demanda en sector industrial y minero',salario:'S/ 3,500 – S/ 8,500',universidades:['UNI','UNSA','PUCP','UCSM','UTec'],sector:'Minería, manufactura, energía, automotriz'}},
+  {nombre:'Ingeniería Electrónica',area:'Ingeniería y Tecnología',emoji:'📡',tipos:{R:2,I:3,A:1,S:0,E:1,C:2},
+   por_que:['Tu curiosidad investigadora y habilidad técnica encajan con sistemas electrónicos','Creciente demanda con la automatización industrial en Perú','Permite especializarse en telecomunicaciones, robótica o automatización'],
+   peru:{vacantes:'Demanda creciente en industria y telecomunicaciones',salario:'S/ 3,500 – S/ 8,000',universidades:['UNI','PUCP','UNSA','UPC','UCSM'],sector:'Telecomunicaciones, industria, minería, gobierno'}},
+  {nombre:'Ingeniería de Minas',area:'Ingeniería y Tecnología',emoji:'⛏️',tipos:{R:3,I:2,A:0,S:1,E:2,C:1},
+   por_que:['Perú es el segundo productor de cobre del mundo — alta demanda garantizada','Tu perfil práctico y técnico encaja con trabajo en campo y operaciones mineras','Uno de los salarios más altos del mercado peruano'],
+   peru:{vacantes:'Alta demanda constante, sector estratégico',salario:'S/ 5,000 – S/ 12,000',universidades:['UNI','UNSA','UNSAAC','UNFV','UCSM'],sector:'Minería metálica y no metálica, consultoría'}},
+  {nombre:'Ingeniería Ambiental',area:'Ingeniería y Tecnología',emoji:'🌿',tipos:{R:2,I:3,A:1,S:2,E:1,C:2},
+   por_que:['Combina ciencia, naturaleza e impacto social — ideal si valoras el medio ambiente','Creciente demanda por regulaciones ambientales en minería y construcción','Perú tiene gran biodiversidad que requiere profesionales especializados'],
+   peru:{vacantes:'Demanda creciente en sector minero y construcción',salario:'S/ 3,000 – S/ 7,000',universidades:['UNALM','PUCP','UNI','UNSA','UPC'],sector:'Minería, construcción, gobierno, ONG'}},
+  {nombre:'Ingeniería de Software',area:'Ingeniería y Tecnología',emoji:'🖥️',tipos:{R:1,I:3,A:2,S:1,E:2,C:2},
+   por_que:['La transformación digital hace que sea una de las carreras con más futuro en Perú','Combina lógica, creatividad técnica y resolución de problemas','Permite trabajo remoto y acceso al mercado global'],
+   peru:{vacantes:'Alta demanda, tasa de empleabilidad cercana al 100%',salario:'S/ 4,500 – S/ 10,000+',universidades:['PUCP','UPC','UTec','Cibertec','Tecsup'],sector:'Startups, banca, retail, gobierno, freelance global'}},
+  {nombre:'Mecatrónica',area:'Ingeniería y Tecnología',emoji:'🤖',tipos:{R:3,I:3,A:1,S:0,E:1,C:2},
+   por_que:['Combina mecánica, electrónica e informática — el futuro de la automatización','Tu perfil técnico e investigador encaja con esta carrera multidisciplinaria','Creciente demanda en industria peruana con automatización'],
+   peru:{vacantes:'Demanda creciente en automatización industrial',salario:'S/ 3,500 – S/ 8,000',universidades:['PUCP','UNI','UPC','UCSM','UTec'],sector:'Industria, manufactura, robótica, minería'}},
+  {nombre:'Telecomunicaciones',area:'Ingeniería y Tecnología',emoji:'📶',tipos:{R:2,I:3,A:1,S:1,E:1,C:2},
+   por_que:['La expansión de internet en Perú genera alta demanda de especialistas','Tu perfil técnico y analítico encaja con redes y sistemas de comunicación','Permite trabajar con empresas líderes como Claro, Movistar o Entel'],
+   peru:{vacantes:'Alta demanda con expansión de 5G en Perú',salario:'S/ 3,500 – S/ 8,000',universidades:['UNI','PUCP','UNSA','UPC','Tecsup'],sector:'Telecomunicaciones, tecnología, gobierno'}},
+  // SALUD
+  {nombre:'Medicina Humana',area:'Salud',emoji:'🏥',tipos:{R:1,I:3,A:0,S:3,E:1,C:1},
+   por_que:['Tu vocación de servicio y curiosidad científica son esenciales en medicina','Alta exigencia intelectual combinada con impacto humano directo','Una de las carreras mejor remuneradas en Perú'],
+   peru:{vacantes:'Alta demanda constante en todo el Perú',salario:'S/ 5,000 – S/ 15,000+',universidades:['UNMSM','UNSA','UPCH','UCSM','UNT'],sector:'Hospitales, clínicas, sector público, investigación'}},
+  {nombre:'Enfermería',area:'Salud',emoji:'🩺',tipos:{R:2,I:1,A:0,S:3,E:1,C:2},
+   por_que:['Tu vocación de servicio y habilidades prácticas encajan perfectamente','Trabajo directo con personas en momentos críticos y de alta responsabilidad','Alta demanda en Perú con oportunidades en sector público y privado'],
+   peru:{vacantes:'Demanda constante y creciente en todo el país',salario:'S/ 2,500 – S/ 5,500',universidades:['UNMSM','UNSA','UPCH','UNT','UCSM'],sector:'Hospitales, clínicas, centros de salud, ONG'}},
+  {nombre:'Odontología',area:'Salud',emoji:'🦷',tipos:{R:2,I:2,A:2,S:2,E:2,C:1},
+   por_que:['Combina habilidad manual, conocimiento científico y atención a personas','Alta posibilidad de independencia profesional con consultorio propio','Demanda constante en todo el Perú'],
+   peru:{vacantes:'Alta demanda, especialmente en provincias',salario:'S/ 3,000 – S/ 8,000',universidades:['UNMSM','UCSM','UPCH','UNSA','UAP'],sector:'Clínicas, consultorio propio, hospitales, MINSA'}},
+  {nombre:'Farmacia y Bioquímica',area:'Salud',emoji:'💊',tipos:{R:1,I:3,A:0,S:2,E:1,C:3},
+   por_que:['Tu perfil científico y ordenado encaja con el desarrollo y control de medicamentos','Combinación única de ciencia y atención a la salud','Alta demanda en farmacias, clínicas e industria farmacéutica peruana'],
+   peru:{vacantes:'Demanda constante en sector salud',salario:'S/ 2,500 – S/ 6,000',universidades:['UNMSM','UPCH','UNSA','UNT','UCSM'],sector:'Farmacias, hospitales, industria farmacéutica, MINSA'}},
+  {nombre:'Nutrición y Dietética',area:'Salud',emoji:'🥗',tipos:{R:1,I:2,A:1,S:3,E:1,C:2},
+   por_que:['Combina ciencia, salud y orientación a personas — triple impacto','Creciente conciencia de salud en Perú genera alta demanda','Permite trabajo independiente, en empresas y hospitales'],
+   peru:{vacantes:'Demanda creciente en salud pública y privada',salario:'S/ 2,000 – S/ 5,000',universidades:['UNMSM','UNSA','PUCP','USMP','UNT'],sector:'Hospitales, clínicas, empresas de alimentos, independiente'}},
+  {nombre:'Obstetricia',area:'Salud',emoji:'👶',tipos:{R:2,I:2,A:0,S:3,E:1,C:2},
+   por_que:['Alta vocación de servicio centrada en la salud materno-infantil','Demanda garantizada dado el sistema de salud peruano','Trabajo con alto impacto social en zonas urbanas y rurales'],
+   peru:{vacantes:'Alta demanda especialmente en regiones',salario:'S/ 2,500 – S/ 5,000',universidades:['UNMSM','UNSA','UNT','UNSAAC','UCSM'],sector:'MINSA, hospitales, clínicas, partería independiente'}},
+  {nombre:'Tecnología Médica',area:'Salud',emoji:'🔬',tipos:{R:2,I:3,A:0,S:2,E:1,C:2},
+   por_que:['Combina tecnología de laboratorio con atención a la salud','Tu perfil técnico e investigador encaja con diagnóstico y análisis clínico','Alta demanda con modernización de hospitales en Perú'],
+   peru:{vacantes:'Demanda creciente en laboratorios y hospitales',salario:'S/ 2,000 – S/ 5,000',universidades:['UNMSM','UPCH','UNSA','UNT','UAP'],sector:'Laboratorios, hospitales, clínicas, MINSA'}},
+  {nombre:'Psicología',area:'Salud',emoji:'🧠',tipos:{R:0,I:2,A:1,S:3,E:1,C:1},
+   por_que:['Tu alta empatía y capacidad de escucha son el núcleo del psicólogo','Combina investigación científica con impacto humano directo','Creciente demanda en salud mental, empresas y educación en Perú'],
+   peru:{vacantes:'Demanda creciente en sector privado y público',salario:'S/ 2,500 – S/ 6,000',universidades:['PUCP','UNMSM','UPCH','UNSA','UPC'],sector:'Salud mental, RR.HH., educación, consultoría'}},
+  // CIENCIAS ECONÓMICAS Y GESTIÓN
+  {nombre:'Administración de Empresas',area:'Gestión y Negocios',emoji:'📊',tipos:{R:0,I:1,A:1,S:2,E:3,C:2},
+   por_que:['Tu orientación hacia el liderazgo y la organización es el corazón de esta carrera','Combina habilidades sociales con pensamiento estratégico y de negocios','Carrera con más vacantes activas en el Perú'],
+   peru:{vacantes:'7,534 vacantes activas — la más demandada (MTPE 2024)',salario:'S/ 3,500 – S/ 6,000',universidades:['PUCP','UP','UPC','UNSA','USMP'],sector:'Cualquier empresa o institución del Perú'}},
+  {nombre:'Contabilidad y Finanzas',area:'Gestión y Negocios',emoji:'💰',tipos:{R:0,I:2,A:0,S:1,E:2,C:3},
+   por_que:['Tu precisión, orden y orientación a los datos encajan perfectamente','Alta estabilidad laboral y demanda constante en todos los sectores','Permite trabajar de forma independiente o en empresa'],
+   peru:{vacantes:'994 vacantes activas, demanda constante (MTPE 2024)',salario:'S/ 3,000 – S/ 7,894',universidades:['UNMSM','UNSA','UTP','UPEU','Senati'],sector:'Empresas privadas, auditoría, banca, sector público'}},
+  {nombre:'Economía',area:'Gestión y Negocios',emoji:'📈',tipos:{R:0,I:3,A:1,S:1,E:2,C:2},
+   por_que:['Tu perfil analítico e investigador encaja con el análisis económico y de políticas','Alta proyección laboral en contextos de análisis de políticas públicas','Permite trabajar en organismos internacionales desde Perú'],
+   peru:{vacantes:'Alta demanda en sector público y privado',salario:'S/ 4,000 – S/ 9,000',universidades:['PUCP','UNMSM','UP','UNSA','USMP'],sector:'Banca, gobierno, consultorías, organismos internacionales'}},
+  {nombre:'Marketing',area:'Gestión y Negocios',emoji:'📣',tipos:{R:0,I:1,A:2,S:2,E:3,C:1},
+   por_que:['Combina creatividad, estrategia y comunicación con personas','El auge del marketing digital genera enormes oportunidades en Perú','Tu orientación emprendedora y artística encajan en esta carrera'],
+   peru:{vacantes:'843 vacantes activas en marketing digital (MTPE 2024)',salario:'S/ 2,500 – S/ 7,843',universidades:['PUCP','UPC','USIL','USMP','UPN'],sector:'Agencias, empresas, e-commerce, freelance'}},
+  {nombre:'Comercio Exterior y Negocios Internacionales',area:'Gestión y Negocios',emoji:'🌍',tipos:{R:0,I:2,A:1,S:2,E:3,C:2},
+   por_que:['Perú como país exportador genera alta demanda de especialistas en comercio exterior','Tu orientación emprendedora y social encaja con negocios internacionales','Permite trabajar con empresas exportadoras e importadoras del país'],
+   peru:{vacantes:'Demanda creciente con crecimiento exportador peruano',salario:'S/ 3,000 – S/ 7,000',universidades:['PUCP','UPC','USIL','USMP','UCSM'],sector:'Aduanas, exportación, logística, banca internacional'}},
+  {nombre:'Logística y Cadena de Suministro',area:'Gestión y Negocios',emoji:'🚚',tipos:{R:1,I:2,A:0,S:1,E:2,C:3},
+   por_que:['El Puerto de Chancay y el crecimiento del comercio en Perú impulsan esta carrera','Tu perfil organizado y analítico encaja con gestión de cadenas logísticas','Alta demanda en retail, minería y exportación'],
+   peru:{vacantes:'Alta demanda con crecimiento del e-commerce y minería',salario:'S/ 3,000 – S/ 7,000',universidades:['UPC','PUCP','USIL','ESAN','Senati'],sector:'Minería, retail, e-commerce, transporte, aduanas'}},
+  {nombre:'Finanzas y Banca',area:'Gestión y Negocios',emoji:'🏦',tipos:{R:0,I:2,A:0,S:1,E:3,C:3},
+   por_que:['Tu perfil analítico y orientado al crecimiento encaja con el sector financiero','El sistema bancario peruano es uno de los más sólidos de LATAM','Alta remuneración y posibilidad de crecimiento rápido'],
+   peru:{vacantes:'Alta demanda en banca y fintech',salario:'S/ 4,000 – S/ 10,000',universidades:['UP','PUCP','ESAN','UPC','USIL'],sector:'Banca, fintech, seguros, AFP, bolsa de valores'}},
+  // DERECHO Y CIENCIAS SOCIALES
+  {nombre:'Derecho',area:'Derecho y Ciencias Sociales',emoji:'⚖️',tipos:{R:0,I:2,A:1,S:2,E:3,C:2},
+   por_que:['Tu habilidad de análisis y persuasión son clave en el Derecho','Alta demanda en Arequipa por crecimiento empresarial y legal','Permite independencia profesional y altos ingresos a largo plazo'],
+   peru:{vacantes:'Alta demanda en todo el Perú',salario:'S/ 3,000 – S/ 10,000+',universidades:['PUCP','UNSA','UPC','UCSM','UNMSM'],sector:'Estudios jurídicos, empresas, sector público, independiente'}},
+  {nombre:'Trabajo Social',area:'Derecho y Ciencias Sociales',emoji:'🤝',tipos:{R:0,I:1,A:1,S:3,E:1,C:2},
+   por_que:['Tu vocación de servicio y empatía son el núcleo del trabajo social','Impacto directo en comunidades vulnerables del Perú','Demanda constante en programas sociales del gobierno peruano'],
+   peru:{vacantes:'Demanda constante en gobierno y ONG',salario:'S/ 1,800 – S/ 4,000',universidades:['UNMSM','UNSA','UCSM','UNT','UNSAAC'],sector:'MIDIS, ONG, hospitales, municipalidades, empresas mineras'}},
+  {nombre:'Sociología',area:'Derecho y Ciencias Sociales',emoji:'👥',tipos:{R:0,I:3,A:1,S:2,E:1,C:1},
+   por_que:['Tu orientación investigadora y social encaja con el análisis de fenómenos colectivos','Perú con su diversidad cultural requiere sociólogos para entender su realidad','Permite trabajar en investigación, gobierno, ONG y sector privado'],
+   peru:{vacantes:'Demanda en investigación y sector público',salario:'S/ 2,000 – S/ 5,000',universidades:['PUCP','UNMSM','UNSA','UNSAAC','UNT'],sector:'Investigación, gobierno, ONG, consultoría social'}},
+  {nombre:'Ciencias Políticas',area:'Derecho y Ciencias Sociales',emoji:'🏛️',tipos:{R:0,I:3,A:1,S:2,E:2,C:1},
+   por_que:['Tu perfil analítico y orientado al liderazgo encaja con la gestión pública','Creciente demanda en gobierno, organismos internacionales y think tanks','Perú necesita profesionales que entiendan su sistema político'],
+   peru:{vacantes:'Demanda en gobierno y organismos internacionales',salario:'S/ 2,500 – S/ 7,000',universidades:['PUCP','UNMSM','UP','USMP','UPC'],sector:'Gobierno, organismos internacionales, consultoría, medios'}},
+  {nombre:'Relaciones Internacionales',area:'Derecho y Ciencias Sociales',emoji:'🌐',tipos:{R:0,I:2,A:1,S:2,E:2,C:2},
+   por_que:['Perú como país con activa política exterior requiere especialistas','Combina análisis político, comunicación intercultural y gestión','Permite trabajar en cancillería, organismos internacionales y empresas'],
+   peru:{vacantes:'Demanda especializada en cancillería y sector privado',salario:'S/ 2,500 – S/ 7,000',universidades:['PUCP','UP','USMP','UPC','UDEP'],sector:'Cancillería, ONG, organismos internacionales, empresas exportadoras'}},
+  // EDUCACIÓN Y HUMANIDADES
+  {nombre:'Educación',area:'Educación y Humanidades',emoji:'📚',tipos:{R:0,I:1,A:2,S:3,E:1,C:2},
+   por_que:['Tu vocación de servicio y habilidad para comunicar son fundamentales en esta carrera','Impacto social real y directo en la formación de personas','Demanda constante en colegios públicos y privados de todo el Perú'],
+   peru:{vacantes:'Demanda constante a nivel nacional',salario:'S/ 2,000 – S/ 5,000',universidades:['UNMSM','UNSA','PUCP','UNE','UNSAAC'],sector:'Colegios, institutos, universidades, tutorías'}},
+  {nombre:'Traducción e Interpretación',area:'Educación y Humanidades',emoji:'🌏',tipos:{R:0,I:2,A:3,S:2,E:1,C:2},
+   por_que:['Tu habilidad lingüística y precisión son el núcleo de la traducción profesional','El comercio exterior peruano genera demanda de traductores especializados','Permite trabajo independiente con clientes del mundo entero'],
+   peru:{vacantes:'Demanda creciente con globalización comercial',salario:'S/ 2,000 – S/ 6,000',universidades:['UNMSM','PUCP','USMP','UNIFÉ','Sise'],sector:'Empresas, juzgados, organismos internacionales, freelance'}},
+  {nombre:'Lingüística y Literatura',area:'Educación y Humanidades',emoji:'📖',tipos:{R:0,I:3,A:3,S:1,E:1,C:1},
+   por_que:['Tu orientación artística e investigadora encaja con el estudio del lenguaje','Perú con su diversidad lingüística necesita especialistas','Permite trabajar en educación, editorial, medios y comunicación'],
+   peru:{vacantes:'Demanda en educación e investigación',salario:'S/ 1,800 – S/ 4,000',universidades:['PUCP','UNMSM','UNSA','UNFV','UNT'],sector:'Educación, editorial, medios, gobierno, investigación'}},
+  // CIENCIAS Y MEDIO AMBIENTE
+  {nombre:'Biología',area:'Ciencias y Medio Ambiente',emoji:'🧬',tipos:{R:1,I:3,A:1,S:1,E:1,C:2},
+   por_que:['Tu curiosidad científica e investigadora es el motor de la biología','Perú con su megadiversidad necesita biólogos especializados','Permite trabajar en investigación, conservación y biotecnología'],
+   peru:{vacantes:'Demanda en investigación, educación y sector ambiental',salario:'S/ 2,000 – S/ 6,000',universidades:['UNMSM','UNSA','UPCH','UNSAAC','UNT'],sector:'Investigación, ONG, minería, gobierno, educación'}},
+  {nombre:'Química',area:'Ciencias y Medio Ambiente',emoji:'⚗️',tipos:{R:1,I:3,A:1,S:1,E:1,C:3},
+   por_que:['Tu perfil investigador y preciso encaja con la ciencia química','Alta demanda en industria farmacéutica, minería y alimentaria peruana','Permite especialización en múltiples sectores industriales'],
+   peru:{vacantes:'Demanda en industria farmacéutica y minera',salario:'S/ 2,500 – S/ 6,000',universidades:['UNMSM','PUCP','UNSA','UNT','UNFV'],sector:'Farmacéutica, minería, alimentos, investigación'}},
+  {nombre:'Geología',area:'Ciencias y Medio Ambiente',emoji:'🪨',tipos:{R:3,I:3,A:0,S:1,E:1,C:2},
+   por_que:['Perú es uno de los principales productores mineros del mundo — alta demanda garantizada','Combina trabajo de campo con análisis científico especializado','Uno de los mejores salarios del mercado profesional peruano'],
+   peru:{vacantes:'Alta demanda sostenida en sector minero',salario:'S/ 4,000 – S/ 10,000',universidades:['UNMSM','UNSA','UNI','UNH','UNSAAC'],sector:'Minería, petróleo, consultoría geológica, gobierno'}},
+  {nombre:'Agronomía',area:'Ciencias y Medio Ambiente',emoji:'🌾',tipos:{R:3,I:2,A:1,S:2,E:2,C:1},
+   por_que:['Perú es potencia agroexportadora en crecimiento constante','Tu perfil práctico e investigador encaja con la gestión agrícola','Alta demanda en costa peruana con boom de agro-exportación'],
+   peru:{vacantes:'Alta demanda con crecimiento agroexportador',salario:'S/ 2,500 – S/ 7,000',universidades:['UNALM','UNSA','UNSAAC','UNT','UNAS'],sector:'Agroexportación, consultoría agrícola, gobierno, cooperativas'}},
+  {nombre:'Medicina Veterinaria',area:'Ciencias y Medio Ambiente',emoji:'🐾',tipos:{R:2,I:2,A:1,S:2,E:2,C:1},
+   por_que:['Combina ciencia, trabajo con animales e impacto en salud pública','Creciente demanda con aumento de mascotas y sector agropecuario','Permite trabajo independiente o en el campo agropecuario peruano'],
+   peru:{vacantes:'Demanda creciente en sector veterinario y agropecuario',salario:'S/ 2,500 – S/ 6,000',universidades:['UNMSM','UNSA','UPCH','UNSAAC','UNT'],sector:'Clínicas veterinarias, sector agropecuario, SENASA, independiente'}},
+  // ARTES Y COMUNICACIÓN
+  {nombre:'Diseño Gráfico y UX',area:'Artes y Comunicación',emoji:'🎨',tipos:{R:1,I:1,A:3,S:1,E:2,C:1},
+   por_que:['Tu creatividad y orientación artística son el motor de esta carrera','El diseño UX es uno de los perfiles más demandados en empresas digitales','Permite trabajo independiente, remoto y con múltiples clientes'],
+   peru:{vacantes:'Alta demanda en agencias y empresas digitales',salario:'S/ 2,500 – S/ 7,000',universidades:['PUCP','UPC','Toulouse Lautrec','UNSA','USIL'],sector:'Agencias creativas, tecnología, marketing, freelance'}},
+  {nombre:'Comunicaciones y Periodismo',area:'Artes y Comunicación',emoji:'📰',tipos:{R:0,I:1,A:3,S:2,E:2,C:1},
+   por_que:['Tu creatividad y facilidad para conectar con personas es el núcleo','El marketing digital ha abierto enormes oportunidades en Perú','Permite trabajo en medios, empresas, agencias y de forma independiente'],
+   peru:{vacantes:'843 vacantes en marketing digital, alta demanda general',salario:'S/ 2,000 – S/ 7,000',universidades:['PUCP','UPC','USMP','UNMSM','UDEP'],sector:'Medios, agencias, empresas, gobierno, freelance'}},
+  {nombre:'Arquitectura',area:'Artes y Comunicación',emoji:'🏛️',tipos:{R:2,I:2,A:3,S:1,E:2,C:2},
+   por_que:['Combina creatividad artística con rigor técnico e impacto urbano','El boom inmobiliario peruano genera alta demanda de arquitectos','Tu perfil creativo y estructurado encaja perfectamente'],
+   peru:{vacantes:'Alta demanda con crecimiento inmobiliario',salario:'S/ 2,500 – S/ 8,000',universidades:['PUCP','UNI','UPC','UNSA','USIL'],sector:'Construcción, inmobiliarias, independiente, gobierno'}},
+  {nombre:'Artes Plásticas y Visuales',area:'Artes y Comunicación',emoji:'🖼️',tipos:{R:1,I:1,A:3,S:1,E:2,C:0},
+   por_que:['Tu orientación artística y creativa es el corazón de esta carrera','Permite expresión personal combinada con mercado de diseño y publicidad','Creciente valoración del arte peruano en el mercado nacional e internacional'],
+   peru:{vacantes:'Demanda en publicidad, diseño e industria creativa',salario:'S/ 1,500 – S/ 5,000',universidades:['PUCP','ENSABAP','Toulouse Lautrec','UNSA','UP'],sector:'Publicidad, diseño, galerías, educación artística, freelance'}},
+  {nombre:'Cine y Producción Audiovisual',area:'Artes y Comunicación',emoji:'🎬',tipos:{R:1,I:1,A:3,S:2,E:2,C:1},
+   por_que:['El crecimiento del contenido digital en Perú impulsa esta carrera','Combina creatividad narrativa con habilidades técnicas de producción','Permite trabajo independiente y con empresas de medios y publicidad'],
+   peru:{vacantes:'Demanda creciente en producción digital y publicidad',salario:'S/ 2,000 – S/ 6,000',universidades:['PUCP','UPC','USMP','UP','Toulouse Lautrec'],sector:'Medios, publicidad, streaming, productoras, freelance'}},
+  // CARRERAS TÉCNICAS DE ALTA DEMANDA
+  {nombre:'Computación e Informática (Técnico)',area:'Carreras Técnicas',emoji:'⌨️',tipos:{R:2,I:2,A:1,S:1,E:1,C:3},
+   por_que:['Inserción laboral rápida con alta demanda en todo el mercado peruano','Combina conocimiento técnico con aplicación práctica inmediata','Menor tiempo de formación con retorno de inversión rápido'],
+   peru:{vacantes:'Alta demanda en toda la industria peruana',salario:'S/ 1,800 – S/ 4,500',universidades:['Senati','Tecsup','Cibertec','IDAT','SISE'],sector:'Empresas de tecnología, retail, banca, gobierno'}},
+  {nombre:'Electrotecnia y Electricidad (Técnico)',area:'Carreras Técnicas',emoji:'⚡',tipos:{R:3,I:1,A:0,S:1,E:1,C:2},
+   por_que:['Alta demanda constante en construcción, minería e industria peruana','Trabajo práctico y técnico con posibilidad de independencia','Inserción laboral muy rápida con buenos ingresos'],
+   peru:{vacantes:'Alta demanda en construcción, minería e industria',salario:'S/ 1,800 – S/ 5,000',universidades:['Senati','Tecsup','CETPRO','Sencico','IDAT'],sector:'Construcción, minería, industria, mantenimiento, independiente'}},
+  {nombre:'Construcción Civil (Técnico)',area:'Carreras Técnicas',emoji:'🧱',tipos:{R:3,I:1,A:1,S:1,E:2,C:2},
+   por_que:['Perú tiene una enorme brecha de infraestructura que garantiza trabajo','Inserción laboral muy rápida con buenos ingresos desde el inicio','Combinación de trabajo práctico con coordinación de equipos'],
+   peru:{vacantes:'Alta demanda en todo el Perú',salario:'S/ 1,800 – S/ 4,500',universidades:['Sencico','Senati','Tecsup','CETPRO','Cibertec'],sector:'Construcción, inmobiliarias, gobierno, independiente'}},
+  {nombre:'Administración de Empresas (Técnico)',area:'Carreras Técnicas',emoji:'📋',tipos:{R:0,I:1,A:0,S:2,E:2,C:3},
+   por_que:['Inserción laboral rápida con la carrera más demandada del Perú','Menor tiempo de formación con retorno de inversión rápido','Permite trabajar en cualquier empresa del país desde el inicio'],
+   peru:{vacantes:'Alta demanda en toda la economía peruana',salario:'S/ 1,500 – S/ 3,500',universidades:['Senati','Tecsup','ISTP','SISE','Cibertec'],sector:'Cualquier empresa, comercio, gobierno, independiente'}},
+  {nombre:'Enfermería Técnica',area:'Carreras Técnicas',emoji:'💉',tipos:{R:2,I:1,A:0,S:3,E:0,C:2},
+   por_que:['Vocación de servicio con inserción laboral inmediata en salud','Alta demanda en todo el sistema de salud peruano','Menor tiempo de formación para quienes quieren ayudar a otros rápidamente'],
+   peru:{vacantes:'Alta demanda constante en todo el Perú',salario:'S/ 1,500 – S/ 3,000',universidades:['IESTP','CETPRO','Sise','Cibertec','institutos técnicos locales'],sector:'Hospitales, clínicas, centros de salud, MINSA'}},
+];
+
+
+// ══ SISTEMA DE CÓDIGOS ══
+// Códigos válidos — en producción esto iría en un backend seguro
+// ══ BACKEND URL — REEMPLAZA CON TU URL DE GOOGLE APPS SCRIPT ══
+// Después de publicar el script en Google, pega la URL aquí:
+const BACKEND_URL = 'https://script.google.com/macros/s/AKfycbxophmRUKspDFa-rWdZvAYd0mG6mxIA5CnSAadwm9LvspRWEtw6hK-at2khBP9n9u_brg/exec';
+
+let resultadoPendiente = null;
+let esPremium = false;
+
+function mostrarFreemium(ranked, top3, hayPresiones) {
+  resultadoPendiente = {ranked, top3, hayPresiones};
+  
+  // Mostrar resultado básico — solo nombre de carrera y % sin detalle
+  const matchColors=['var(--rojo)','var(--rojo2)','var(--azul)'];
+  let html = `
+    <div class="result-hero">
+      <div class="result-hero-label">Vista previa de tu resultado, ${U.nombre}</div>
+      <div class="result-hero-name">Código ${top3.join('')} · ${U.ciudad}</div>
+      <div class="result-hero-desc">${top3.map(t=>TIPO_LABELS[t].label).join(' · ')} — ${TIPO_LABELS[top3[0]].desc}</div>
+    </div>
+    <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Vista previa — desbloquea para ver el análisis completo</div>`;
+
+  ranked.forEach((c,i) => {
+    html += `<div class="res-basico-card">
+      <div style="font-size:24px;margin-bottom:4px;">${c.emoji}</div>
+      <div class="res-basico-name">${c.nombre}</div>
+      <div style="display:flex;align-items:center;gap:10px;margin:8px 0;">
+        <div style="flex:1;height:8px;background:var(--border);border-radius:4px;overflow:hidden;">
+          <div style="height:100%;width:${c.pct}%;background:${matchColors[i]};border-radius:4px;"></div>
+        </div>
+        <span style="font-family:'Syne',sans-serif;font-weight:800;font-size:14px;color:${matchColors[i]};">${c.pct}%</span>
+      </div>
+      <div class="res-basico-blur">
+        <div style="font-size:13px;color:var(--muted);">▸ Análisis detallado disponible en versión completa<br>▸ Datos de vacantes y salarios en Perú<br>▸ Universidades recomendadas en ${U.ciudad}</div>
+      </div>
+    </div>`;
+  });
+
+  document.getElementById('free-basico').innerHTML = html;
+  goTo('s-freemium');
+}
+
+async function validarCodigo() {
+  const cod       = document.getElementById('cod-input').value.trim().toUpperCase();
+  const nombre    = document.getElementById('cod-nombre').value.trim();
+  const correo    = document.getElementById('cod-correo').value.trim();
+  const errEl     = document.getElementById('cod-error');
+  const errCampos = document.getElementById('cod-error-campos');
+  const okEl      = document.getElementById('cod-ok');
+  const btn       = document.querySelector('.btn-blue[onclick="validarCodigo()"]');
+
+  errEl.style.display = 'none';
+  errCampos.style.display = 'none';
+  okEl.style.display = 'none';
+
+  // Validar campos vacíos
+  if (!nombre || !correo || !cod) {
+    errCampos.style.display = 'block';
+    return;
+  }
+
+  // Validar formato correo
+  if (!correo.includes('@') || !correo.includes('.')) {
+    errCampos.textContent = '⚠️ Por favor ingresa un correo electrónico válido.';
+    errCampos.style.display = 'block';
+    return;
+  }
+
+  // Mostrar estado de carga
+  if (btn) { btn.textContent = 'Verificando...'; btn.disabled = true; }
+
+  try {
+    // Consultar backend via JSONP (funciona desde archivo local y servidor)
+    const data = await new Promise((resolve, reject) => {
+      const cbName = 'vtcb_' + Date.now();
+      const script = document.createElement('script');
+      const url = BACKEND_URL + '?accion=validar&codigo=' + encodeURIComponent(cod)
+                + '&nombre=' + encodeURIComponent(nombre)
+                + '&correo=' + encodeURIComponent(correo)
+                + '&callback=' + cbName;
+      const timer = setTimeout(() => {
+        delete window[cbName];
+        if (document.body.contains(script)) document.body.removeChild(script);
+        reject(new Error('timeout'));
+      }, 10000);
+      window[cbName] = (resp) => {
+        clearTimeout(timer);
+        delete window[cbName];
+        if (document.body.contains(script)) document.body.removeChild(script);
+        resolve(resp);
+      };
+      script.src = url;
+      script.onerror = () => { clearTimeout(timer); reject(new Error('error')); };
+      document.body.appendChild(script);
+    });
+
+    if (data.ok) {
+      // Código válido — desbloquear
+      U.codigoUsado  = cod;
+      U.nombreCodigo = nombre;
+      U.correoCodigo = correo;
+      esPremium = true;
+      okEl.style.display = 'block';
+
+      setTimeout(() => {
+        if (resultadoPendiente) {
+          mostrarResultadoCompleto(
+            resultadoPendiente.ranked,
+            resultadoPendiente.top3,
+            resultadoPendiente.hayPresiones
+          );
+        }
+      }, 1200);
+
+    } else {
+      // Código inválido o ya usado
+      errEl.textContent = '❌ ' + (data.error || 'Código no válido.');
+      errEl.style.display = 'block';
+      document.getElementById('cod-input').style.borderColor = 'var(--rojo)';
+      setTimeout(() => {
+        document.getElementById('cod-input').style.borderColor = 'var(--border)';
+      }, 2000);
+    }
+
+  } catch (err) {
+    // Error de conexión
+    errEl.textContent = '⚠️ Sin conexión al servidor. Verifica tu internet e intenta de nuevo.';
+    errEl.style.display = 'block';
+  } finally {
+    if (btn) { btn.textContent = 'Desbloquear resultado →'; btn.disabled = false; }
+  }
+}
+
+// ══ VER REGISTRO (para uso del administrador — Daniel) ══
+// Abre la consola del navegador y escribe: verRegistro()
+function verRegistro() {
+  try {
+    const historial = JSON.parse(localStorage.getItem('vt_registro') || '[]');
+    if (historial.length === 0) {
+      console.log('No hay registros aún.');
+      return;
+    }
+    console.log('=== REGISTRO DE USOS VocaTest Perú ===');
+    console.table(historial);
+    console.log('Total de usos:', historial.length);
+    // Generar texto para copiar
+    let txt = 'CÓDIGO\t\tNOMBRE\t\t\tCORREO\t\t\tCIUDAD\t\tFECHA\tHORA\tTIPO\n';
+    historial.forEach(r => {
+      txt += `${r.codigo}\t${r.nombre}\t${r.correo}\t${r.ciudad}\t${r.fecha}\t${r.hora}\t${r.tipo}\n`;
+    });
+    console.log('\n--- FORMATO PARA COPIAR A EXCEL ---\n' + txt);
+  } catch(e) {
+    console.log('Error al leer registro:', e);
+  }
+}
+
+// ══ LIMPIAR REGISTRO (solo para pruebas) ══
+function limpiarRegistro() {
+  localStorage.removeItem('vt_registro');
+  console.log('Registro limpiado.');
+}
+
+// ══ TIPO LABELS ══
+const TIPO_LABELS={
+  R:{label:'Realista',desc:'Práctico, manual, concreto',color:'#795548'},
+  I:{label:'Investigador',desc:'Analítico, curioso, científico',color:'#1565C0'},
+  A:{label:'Artístico',desc:'Creativo, expresivo, original',color:'#6A1B9A'},
+  S:{label:'Social',desc:'Empático, servicial, comunicativo',color:'#2E7D32'},
+  E:{label:'Emprendedor',desc:'Líder, persuasivo, ambicioso',color:'#E65100'},
+  C:{label:'Convencional',desc:'Organizado, preciso, sistemático',color:'#37474F'},
+};
+
+const LOADING_MSGS=['Analizando tus intereses...','Evaluando tus habilidades...','Cruzando con tus valores...','Consultando datos del MTPE 2024...','Generando tu perfil vocacional...'];
+
+function goTo(id){document.querySelectorAll('.screen').forEach(s=>s.classList.remove('active'));document.getElementById(id).classList.add('active');window.scrollTo(0,0);}
+
+function selPerfil(p,el){perfilSel=p;U.perfil=p;document.querySelectorAll('.profile-btn').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');checkReady();}
+function checkReady(){const ok=document.getElementById('input-nombre').value.trim()&&document.getElementById('input-ciudad').value&&perfilSel;const btn=document.getElementById('btn-perfil');btn.disabled=!ok;btn.style.opacity=ok?'1':'0.5';}
+document.addEventListener('DOMContentLoaded',()=>{
+  document.getElementById('input-nombre').addEventListener('input',checkReady);
+  document.getElementById('input-ciudad').addEventListener('change',checkReady);
+});
+
+function irAPresiones(){
+  U.nombre=document.getElementById('input-nombre').value.trim();
+  U.ciudad=document.getElementById('input-ciudad').value;
+  presionesIdx=0;U.presiones={};renderPresion();goTo('s-presiones');
+}
+
+function renderPresion(){
+  const q=PRESIONES_QS[presionesIdx];
+  document.getElementById('presiones-container').innerHTML=`
+    <div class="card" style="margin-bottom:16px;">
+      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;">
+        <span class="label" style="margin:0;">Pregunta ${presionesIdx+1} de ${PRESIONES_QS.length}</span>
+        <div style="display:flex;gap:4px;">${Array.from({length:PRESIONES_QS.length},(_,i)=>`<div style="width:24px;height:4px;border-radius:2px;background:${i<=presionesIdx?'var(--rojo2)':'var(--border)'}"></div>`).join('')}</div>
+      </div>
+      <div class="q-text">${q.q}</div>
+      <div class="presion-opts">${q.opts.map(o=>`<div class="presion-opt" onclick="selPresion('${q.id}','${esc(o)}',this)">${o}</div>`).join('')}</div>
+    </div>`;
+  const btn=document.getElementById('btn-presiones');btn.disabled=true;btn.style.opacity='0.5';
+}
+
+function selPresion(id,val,el){
+  U.presiones[id]=val;
+  document.querySelectorAll('.presion-opt').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');
+  setTimeout(()=>{presionesIdx++;if(presionesIdx>=PRESIONES_QS.length){const b=document.getElementById('btn-presiones');b.disabled=false;b.style.opacity='1';}else renderPresion();},280);
+}
+
+function irATest(){testQIdx=0;U.scores={R:0,I:0,A:0,S:0,E:0,C:0};renderTestQ();goTo('s-test');}
+
+function renderTestQ(){
+  const q=TEST_QS[testQIdx];const total=TEST_QS.length;
+  const dimColors={intereses:{bg:'#EEF2FF',c:'#1B3FA0'},habilidades:{bg:'#FFF0E8',c:'#C45000'},valores:{bg:'#E8F5E9',c:'#1B5E20'},estilo:{bg:'#FFF8E1',c:'#F57F17'}};
+  const dc=dimColors[q.dim];
+  document.getElementById('test-prog').innerHTML=`<div class="prog-meta"><span class="prog-label">${q.cat}</span><span class="prog-count">${testQIdx+1} / ${total}</span></div><div class="prog-bar-bg"><div class="prog-bar" style="width:${Math.round((testQIdx/total)*100)}%"></div></div>`;
+  document.getElementById('test-q-cat').innerHTML=`<span style="background:${dc.bg};color:${dc.c};padding:4px 12px;border-radius:20px;font-weight:700;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;">${q.cat}</span>`;
+  document.getElementById('test-q-text').textContent=q.q;
+  testSelOpt=null;
+  const nb=document.getElementById('btn-next');nb.disabled=true;nb.style.opacity='0.5';
+  document.getElementById('test-opts').innerHTML=q.opts.map((o,i)=>`<button class="opt" onclick="selOpt(${i},this)"><div class="opt-dot"></div><span>${o.t}</span></button>`).join('');
+}
+
+function selOpt(i,el){
+  document.querySelectorAll('#test-opts .opt').forEach(b=>b.classList.remove('sel'));el.classList.add('sel');testSelOpt=i;
+  const nb=document.getElementById('btn-next');nb.disabled=false;nb.style.opacity='1';
+}
+
+function nextTestQ(){
+  if(testSelOpt===null)return;
+  const vals=TEST_QS[testQIdx].opts[testSelOpt].v;
+  for(const[k,v]of Object.entries(vals))U.scores[k]=(U.scores[k]||0)+v;
+  testQIdx++;
+  if(testQIdx>=TEST_QS.length)calcular();
+  else renderTestQ();
+}
+
+function calcular(){
+  goTo('s-loading');let i=0;
+  const iv=setInterval(()=>{i++;if(i<LOADING_MSGS.length)document.getElementById('loading-sub').textContent=LOADING_MSGS[i];},600);
+  setTimeout(()=>{clearInterval(iv);mostrarResultado();},3200);
+}
+
+function mostrarResultado(){
+  const ranked=CARRERAS.map(c=>{
+    let score=0,maxScore=0;
+    for(const[t,p]of Object.entries(c.tipos)){score+=(U.scores[t]||0)*p;maxScore+=30*p;}
+    const base=Math.min(96,Math.round((score/maxScore)*100));
+    const pct=Math.min(99,base+Math.floor(Math.random()*6));
+    return{...c,pct};
+  }).sort((a,b)=>b.pct-a.pct).slice(0,3);
+
+  const sorted=Object.entries(U.scores).sort((a,b)=>b[1]-a[1]);
+  const top3=sorted.slice(0,3).map(([k])=>k);
+  const hayPresiones=Object.values(U.presiones).some(v=>v.includes('Sí')||v.includes('sí')||v.includes('presión')||v.includes('conflicto')||v.includes('miedo')||v.includes('descartado'));
+
+  let html=`
+    <div class="result-hero">
+      <div class="result-hero-label">Tu perfil vocacional, ${U.nombre}</div>
+      <div class="result-hero-name">Código ${top3.join('')} · ${U.ciudad}</div>
+      <div class="result-hero-desc">${top3.map(t=>TIPO_LABELS[t].label).join(' · ')} — ${TIPO_LABELS[top3[0]].desc}</div>
+    </div>
+    <div class="perfil-grid">
+      ${top3.map(t=>`<span class="perfil-chip" style="background:${TIPO_LABELS[t].color}22;color:${TIPO_LABELS[t].color};">${TIPO_LABELS[t].label}</span>`).join('')}
+    </div>`;
+
+  if(hayPresiones){
+    html+=`<div class="presion-alert">
+      <div class="presion-alert-title">⚠️ Detectamos presiones externas en tus respuestas</div>
+      <div class="presion-alert-text">Respondiste que hay factores externos influyendo en tu decisión — familiares, económicos o sociales. Tus resultados reflejan tu perfil real. Te invitamos a reflexionar si las carreras recomendadas coinciden con lo que genuinamente deseas, más allá de las expectativas de otros. <strong>Tu vocación es tuya.</strong></div>
+    </div>`;
+  }
+
+  html+=`<div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Tus 3 carreras más compatibles</div>`;
+
+  const rankLabels=['🥇 Mejor match','🥈 Muy compatible','🥉 Compatible'];
+  const matchColors=['var(--rojo)','var(--rojo2)','var(--azul)'];
+
+  ranked.forEach((c,i)=>{
+    html+=`<div class="carrera-card">
+      <div class="carrera-rank" style="color:${matchColors[i]};">${rankLabels[i]} · ${c.area}</div>
+      <div style="font-size:32px;margin-bottom:4px;">${c.emoji}</div>
+      <div class="carrera-name">${c.nombre}</div>
+      <div class="carrera-match">
+        <div class="match-bar-bg"><div class="match-bar" id="bar-${i}" style="width:0%;background:${matchColors[i]};"></div></div>
+        <span class="match-pct" style="color:${matchColors[i]};">${c.pct}%</span>
+      </div>
+      <div class="carrera-why">
+        <div class="carrera-why-title">¿Por qué esta carrera para ti?</div>
+        ${c.por_que.map(p=>`<div class="why-item"><span class="why-dot">▸</span><span>${p}</span></div>`).join('')}
+      </div>
+      <div class="carrera-peru">
+        <div class="carrera-peru-title">📍 En el Perú</div>
+        <div class="peru-stat"><span class="peru-icon">💼</span>${c.peru.vacantes}</div>
+        <div class="peru-stat"><span class="peru-icon">💰</span>${c.peru.salario}</div>
+        <div class="peru-stat"><span class="peru-icon">🏛️</span>${c.peru.universidades.slice(0,3).join(', ')}</div>
+        <div class="peru-stat"><span class="peru-icon">🏢</span>${c.peru.sector}</div>
+      </div>
+    </div>`;
+  });
+
+  if (!esPremium) {
+    mostrarFreemium(ranked, top3, hayPresiones);
+  } else {
+    mostrarResultadoCompleto(ranked, top3, hayPresiones);
+  }
+}
+
+function generarAnalisisPerfil(top3) {
+  const perfiles = {
+    R: {
+      fortalezas: 'Tienes una orientación práctica y concreta hacia el mundo. Te destacas trabajando con herramientas, máquinas, objetos físicos o al aire libre. Aprendes mejor haciendo que escuchando, y tus manos y tu cuerpo son parte esencial de cómo procesas la realidad.',
+      estilo: 'Tu estilo de aprendizaje es experiencial — necesitas ver, tocar y construir para entender. Tiendes a ser directo, honesto y resuelto. No te gustan los rodeos ni las abstracciones innecesarias.',
+      entorno: 'Te desenvuelves mejor en entornos donde hay resultados concretos y tangibles. Los ambientes con demasiada burocracia o trabajo puramente teórico pueden frustrarte.',
+      consejo: 'Busca carreras que combinen formación técnica con aplicación práctica desde el primer año. El mundo necesita personas que sepan hacer cosas reales.'
+    },
+    I: {
+      fortalezas: 'Tienes una mente analítica y científica. Disfrutas investigar, cuestionar, buscar explicaciones y resolver problemas complejos. La curiosidad intelectual es una de tus principales motivaciones.',
+      estilo: 'Aprendes en profundidad — prefieres entender el "por qué" antes que memorizar el "cómo". Trabajas bien de manera independiente y te tomas el tiempo necesario para llegar a conclusiones sólidas.',
+      entorno: 'Te va mejor en entornos que valoran el pensamiento riguroso, la investigación y la autonomía intelectual. Los ambientes que priorizan la velocidad sobre la profundidad pueden no ser los ideales para ti.',
+      consejo: 'Elige una carrera que te permita seguir aprendiendo toda la vida. Tu mayor activo no es lo que ya sabes, sino tu capacidad de descubrir lo que aún no sabes.'
+    },
+    A: {
+      fortalezas: 'Tienes una sensibilidad creativa y expresiva muy desarrollada. Ves el mundo de manera original, encuentras belleza y significado donde otros no los ven, y tienes una fuerte necesidad de expresarte.',
+      estilo: 'Aprendes mejor cuando tienes libertad para explorar y experimentar. Los esquemas rígidos limitan tu potencial. Eres intuitivo/a, sensible al contexto y capaz de conectar ideas de maneras inesperadas.',
+      entorno: 'Floreces en entornos que valoran la originalidad, la experimentación y la expresión personal. Los ambientes excesivamente normativos o repetitivos pueden apagar tu motivación.',
+      consejo: 'No subestimes el valor económico de la creatividad. Las industrias creativas son de las más dinámicas del mundo. Tu diferencial es tu mirada única — cultívala.'
+    },
+    S: {
+      fortalezas: 'Tienes una capacidad natural para conectar con las personas, entender sus necesidades y ayudarlas a crecer. La empatía y la comunicación son tus herramientas más poderosas.',
+      estilo: 'Aprendes mejor en contextos colaborativos donde puedes interactuar, debatir y construir con otros. El trabajo en equipo no es solo tolerable para ti — es energizante.',
+      entorno: 'Necesitas trabajar con y para personas. Los entornos de trabajo aislado o puramente técnico sin interacción humana pueden hacerte sentir desconectado/a de tu propósito.',
+      consejo: 'Tu capacidad de generar confianza y acompañar a otros en procesos difíciles es un talento escaso y muy valioso. Busca carreras donde esa habilidad sea el centro, no un complemento.'
+    },
+    E: {
+      fortalezas: 'Tienes una energía emprendedora y de liderazgo muy marcada. Sabes persuadir, motivar y movilizar a otros hacia objetivos. Ves oportunidades donde otros ven obstáculos.',
+      estilo: 'Aprendes mejor cuando tienes objetivos claros y la posibilidad de tomar decisiones. La acción te energiza más que la reflexión pasiva. Eres competitivo/a y orientado/a a resultados.',
+      entorno: 'Necesitas entornos dinámicos con autonomía, desafíos constantes y posibilidades de crecimiento. Los entornos muy jerárquicos o sin movilidad pueden frustrarte rápidamente.',
+      consejo: 'Desarrolla tu capacidad de escuchar tanto como tu capacidad de convencer. Los mejores líderes no son los que hablan más, sino los que entienden más. Eso multiplicará tu impacto.'
+    },
+    C: {
+      fortalezas: 'Tienes una mente ordenada, metódica y orientada al detalle. Eres confiable, preciso/a y capaz de mantener sistemas complejos funcionando con eficiencia. La exactitud es uno de tus mayores valores.',
+      estilo: 'Aprendes mejor con estructuras claras, instrucciones precisas y objetivos bien definidos. Prefieres dominar profundamente un área antes de avanzar a la siguiente.',
+      entorno: 'Trabajas mejor en entornos organizados, con roles claros y procesos bien establecidos. El caos y la improvisación constante no son tus aliados.',
+      consejo: 'En un mundo que cambia rápido, tu capacidad de mantener el orden y la precisión es un activo crítico. Combínala con apertura al cambio y serás indispensable en cualquier organización.'
+    }
+  };
+
+  const tipoPrincipal = top3[0];
+  const p = perfiles[tipoPrincipal];
+  const etiquetas = top3.map(t => TIPO_LABELS[t].label).join(', ');
+
+  return `
+    <div style="background:linear-gradient(135deg,#f8f9ff,#eef2ff);border:1px solid #dde4ff;border-radius:14px;padding:20px;margin-bottom:16px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:var(--azul);margin-bottom:12px;">🧠 Análisis de tu perfil</div>
+
+      <div style="margin-bottom:14px;">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#1a1a2e;margin-bottom:6px;">Tus fortalezas naturales</div>
+        <p style="font-size:14px;line-height:1.75;color:#3a3a5c;">${p.fortalezas}</p>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#1a1a2e;margin-bottom:6px;">Tu estilo de aprendizaje</div>
+        <p style="font-size:14px;line-height:1.75;color:#3a3a5c;">${p.estilo}</p>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:#1a1a2e;margin-bottom:6px;">Tu entorno ideal de trabajo</div>
+        <p style="font-size:14px;line-height:1.75;color:#3a3a5c;">${p.entorno}</p>
+      </div>
+
+      <div style="background:white;border-left:3px solid var(--azul);border-radius:0 8px 8px 0;padding:12px 14px;">
+        <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:12px;color:var(--azul);margin-bottom:6px;">💡 Consejo para ti</div>
+        <p style="font-size:14px;line-height:1.75;color:#3a3a5c;margin:0;">${p.consejo}</p>
+      </div>
+    </div>`;
+}
+
+function generarAnalisisCarrera(c, idx, matchColor, rankLabel, U) {
+  const intro = [
+    `${c.nombre} emerge como tu mejor opción vocacional porque existe una alineación profunda entre lo que eres, cómo piensas y lo que esta carrera demanda de sus profesionales.`,
+    `${c.nombre} aparece en segundo lugar porque comparte muchas de las características de tu perfil, con una compatibilidad alta que no debe subestimarse.`,
+    `${c.nombre} completa tu top 3 como una opción genuinamente compatible que puede sorprenderte si la exploras con más profundidad.`
+  ];
+
+  const cierre = [
+    `Si estudias ${c.nombre} en ${U.ciudad} o en otra ciudad del Perú, estarás invirtiendo en una carrera que tiene demanda real, crecimiento sostenido y sobre todo — una que encaja con quien tú eres.`,
+    `Considera ${c.nombre} no como una segunda opción, sino como un camino igualmente válido que podría darte satisfacción profesional y personal a largo plazo.`,
+    `Muchos profesionales exitosos en ${c.nombre} en el Perú descubrieron esta carrera tarde. Que aparezca en tu top 3 ya es una señal que vale la pena explorar.`
+  ];
+
+  return `<div class="carrera-card">
+    <div class="carrera-rank" style="color:${matchColor};">${rankLabel} · ${c.area}</div>
+    <div style="font-size:32px;margin-bottom:4px;">${c.emoji}</div>
+    <div class="carrera-name">${c.nombre}</div>
+    <div class="carrera-match">
+      <div class="match-bar-bg"><div class="match-bar" id="bar-${idx}" style="width:0%;background:${matchColor};"></div></div>
+      <span class="match-pct" style="color:${matchColor};">${c.pct}%</span>
+    </div>
+
+    <p style="font-size:14px;line-height:1.8;color:#3a3a5c;margin-bottom:14px;">${intro[idx]}</p>
+
+    <div class="carrera-why">
+      <div class="carrera-why-title">¿Por qué esta carrera para ti?</div>
+      ${c.por_que.map(p=>`<div class="why-item"><span class="why-dot">▸</span><span>${p}</span></div>`).join('')}
+    </div>
+
+    <div style="background:#f8f9ff;border-radius:10px;padding:14px;margin-bottom:14px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:var(--azul);margin-bottom:8px;">📖 Qué estudiarás</div>
+      <p style="font-size:13px;line-height:1.75;color:#3a3a5c;margin:0;">La formación en ${c.nombre} te preparará para enfrentar desafíos reales del mercado peruano. Combina fundamentos teóricos sólidos con aplicación práctica que te permitirá insertarte en el mundo laboral con ventaja desde los primeros semestres.</p>
+    </div>
+
+    <div class="carrera-peru">
+      <div class="carrera-peru-title">📍 En el Perú</div>
+      <div class="peru-stat"><span class="peru-icon">💼</span>${c.peru.vacantes}</div>
+      <div class="peru-stat"><span class="peru-icon">💰</span>${c.peru.salario}</div>
+      <div class="peru-stat"><span class="peru-icon">🏛️</span>${c.peru.universidades.slice(0,3).join(', ')}</div>
+      <div class="peru-stat"><span class="peru-icon">🏢</span>${c.peru.sector}</div>
+    </div>
+
+    <div style="background:linear-gradient(135deg,#eef2ff,#f0fff4);border-radius:10px;padding:14px;margin-top:14px;border:1px solid #dde4ff;">
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:12px;letter-spacing:0.06em;text-transform:uppercase;color:#2E7D32;margin-bottom:8px;">🌱 Perspectiva a futuro</div>
+      <p style="font-size:13px;line-height:1.75;color:#3a3a5c;margin:0;">${cierre[idx]}</p>
+    </div>
+  </div>`;
+}
+
+function mostrarResultadoCompleto(ranked, top3, hayPresiones) {
+  let html=`
+    <div class="result-hero">
+      <div class="result-hero-label">Tu perfil vocacional, ${U.nombre}</div>
+      <div class="result-hero-name">Código ${top3.join('')} · ${U.ciudad}</div>
+      <div class="result-hero-desc">${top3.map(t=>TIPO_LABELS[t].label).join(' · ')} — ${TIPO_LABELS[top3[0]].desc}</div>
+    </div>
+    <div class="perfil-grid">
+      ${top3.map(t=>`<span class="perfil-chip" style="background:${TIPO_LABELS[t].color}22;color:${TIPO_LABELS[t].color};">${TIPO_LABELS[t].label}</span>`).join('')}
+    </div>
+
+    <div style="background:#fffbeb;border:1px solid #fde68a;border-radius:12px;padding:16px;margin-bottom:16px;">
+      <p style="font-size:14px;line-height:1.85;color:#78350f;margin:0;">Hola <strong>${U.nombre}</strong>, este es tu análisis vocacional completo basado en tus respuestas. Lo que leerás a continuación no es un resultado genérico — está construido a partir de tu perfil único y cruzado con datos reales del mercado laboral peruano del MTPE 2024. Tómate el tiempo necesario para leerlo con calma.</p>
+    </div>`;
+
+  if(hayPresiones){
+    html+=`<div class="presion-alert">
+      <div class="presion-alert-title">⚠️ Detectamos presiones externas en tus respuestas</div>
+      <div class="presion-alert-text">Respondiste que hay factores externos influyendo en tu decisión — familiares, económicos o sociales. Es importante que sepas que este resultado refleja tu perfil real, no el que otros esperan de ti. Las carreras que verás a continuación son las que mejor encajan con quien tú eres genuinamente. Te invitamos a reflexionar: ¿coinciden con lo que en el fondo deseas? <strong>Tu vocación es tuya. Nadie más puede vivirla por ti.</strong></div>
+    </div>`;
+  }
+
+  html += generarAnalisisPerfil(top3);
+
+  html+=`<div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;color:var(--muted);margin-bottom:14px;">Tus 3 carreras más compatibles</div>`;
+
+  const rankLabels=['🥇 Mejor match','🥈 Muy compatible','🥉 Compatible'];
+  const matchColors=['var(--rojo)','var(--rojo2)','var(--azul)'];
+
+  ranked.forEach((c,i)=>{
+    html += generarAnalisisCarrera(c, i, matchColors[i], rankLabels[i], U);
+  });
+
+  html += `
+    <div style="background:linear-gradient(135deg,#0a2463,#1565C0);border-radius:14px;padding:20px;color:white;margin-top:8px;">
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:13px;letter-spacing:0.08em;text-transform:uppercase;opacity:0.8;margin-bottom:10px;">✨ Reflexión final</div>
+      <p style="font-size:14px;line-height:1.85;opacity:0.95;margin-bottom:12px;">Elegir una carrera es una de las decisiones más importantes de tu vida, pero no tiene que ser perfecta desde el primer día. Lo que sí importa es que la elijas desde un autoconocimiento real — y eso es exactamente lo que acabas de hacer.</p>
+      <p style="font-size:14px;line-height:1.85;opacity:0.95;margin-bottom:12px;">Tu perfil <strong>${top3.map(t=>TIPO_LABELS[t].label).join(' · ')}</strong> es una combinación única que te abrirá puertas en múltiples campos. Las carreras que aparecen en tu resultado no son las únicas opciones válidas — son las que mejor se alinean con quién eres hoy. A medida que crezcas, también crecerá tu vocación.</p>
+      <p style="font-size:14px;line-height:1.85;opacity:0.95;margin:0;">Guarda este resultado, compártelo con alguien de confianza y, sobre todo, úsalo como punto de partida — no como una sentencia definitiva. El camino vocacional se construye caminando.</p>
+    </div>`;
+
+  document.getElementById('res-content').innerHTML=html;
+  goTo('s-resultado');
+  setTimeout(()=>{ranked.forEach((_,i)=>{const b=document.getElementById('bar-'+i);if(b)b.style.width=ranked[i].pct+'%';});},200);
+}
+
+function esc(s){return s.replace(/'/g,"\\'");}
+function compartir(){if(navigator.share){navigator.share({title:'Mi resultado en VocaTest Perú',text:`Hice el test vocacional en VocaTest Perú. ¡Pruébalo tú también!`,url:window.location.href});}else{alert('Copia el enlace de esta página para compartirlo.');}}
+
+// ══ MODAL BIENVENIDA ══
+function mostrarBienvenida(){
+  const visto = localStorage.getItem('vt_bienvenida_vista');
+  if(!visto){
+    document.getElementById('modal-bienvenida').style.display='flex';
+  }
+}
+function cerrarBienvenida(){
+  document.getElementById('modal-bienvenida').style.display='none';
+}
+function cerrarBienvenidaNoMostrar(){
+  localStorage.setItem('vt_bienvenida_vista','1');
+  cerrarBienvenida();
+}
+// Mostrar al cargar
+window.addEventListener('load', function(){
+  setTimeout(mostrarBienvenida, 600);
+});
+
+function resetAll(){U={nombre:'',ciudad:'',perfil:'',presiones:{},scores:{R:0,I:0,A:0,S:0,E:0,C:0}};perfilSel='';presionesIdx=0;testQIdx=0;testSelOpt=null;esPremium=false;resultadoPendiente=null;goTo('s-inicio');}
+</script>
+
+<!-- ══ MODAL BIENVENIDA ══ -->
+<div id="modal-bienvenida" class="bienvenida-overlay" style="display:none;">
+  <div class="bienvenida-modal">
+
+    <div class="bienvenida-header">
+      <button class="bienvenida-close" onclick="cerrarBienvenida()">✕</button>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:11px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.7);margin-bottom:8px;">Por qué VocaTest Perú es diferente</div>
+      <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:22px;color:white;line-height:1.2;margin-bottom:6px;">La ciencia detrás de tu vocación real</div>
+      <div style="font-size:13px;color:rgba(255,255,255,0.8);line-height:1.5;">No somos un cuestionario de 10 preguntas. Somos el primer test vocacional científico diseñado específicamente para jóvenes peruanos.</div>
+    </div>
+
+    <div class="bienvenida-body">
+
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin-bottom:10px;">¿En qué fallaron los tests anteriores?</div>
+      <div class="vs-row">
+        <div class="vs-box malo">
+          <div class="vs-titulo malo">Tests comunes</div>
+          <div class="vs-item">
+            ✗ Solo preguntan "¿qué te gusta?"<br>
+            ✗ Creados en los años 60 en EE.UU.<br>
+            ✗ No consideran el mercado peruano<br>
+            ✗ Ignoran las presiones familiares<br>
+            ✗ Sin explicación del porqué
+          </div>
+        </div>
+        <div class="vs-box bueno">
+          <div class="vs-titulo bueno">VocaTest Perú</div>
+          <div class="vs-item">
+            ✓ 4 dimensiones de análisis<br>
+            ✓ Adaptado al contexto peruano<br>
+            ✓ Datos reales del MTPE 2024<br>
+            ✓ Detecta presiones externas<br>
+            ✓ Explica el porqué de cada carrera
+          </div>
+        </div>
+      </div>
+
+      <div style="font-family:'Syne',sans-serif;font-weight:700;font-size:13px;color:var(--text);margin:16px 0 10px;">Fundamento científico</div>
+
+      <div class="teoria-row">
+        <div class="teoria-icon" style="background:#EEF2FF;">🧠</div>
+        <div class="teoria-text"><strong>Teoría RIASEC — John Holland (1959, revisada 1997)</strong><br>El marco más usado en orientación vocacional en más de 40 países. Estándar científico mundial.</div>
+      </div>
+      <div class="teoria-row">
+        <div class="teoria-icon" style="background:#E8F5E9;">🌱</div>
+        <div class="teoria-text"><strong>Desarrollo Vocacional — Donald Super (1953)</strong><br>La vocación evoluciona con la vida. Orienta tanto a quienes eligen como a quienes ya estudian y tienen dudas.</div>
+      </div>
+      <div class="teoria-row">
+        <div class="teoria-icon" style="background:#FFF8E1;">📊</div>
+        <div class="teoria-text"><strong>Datos reales del MTPE 2024</strong><br>Vacantes activas, salarios reales y universidades del Perú. No teoría — mercado laboral actual.</div>
+      </div>
+      <div class="teoria-row">
+        <div class="teoria-icon" style="background:#FFEBEE;">⚠️</div>
+        <div class="teoria-text"><strong>Modelo de Factores Múltiples</strong><br>Investigaciones peruanas confirman que la mala elección de carrera se debe a presiones familiares y sociales. VocaTest las detecta antes del test.</div>
+      </div>
+
+      <div style="background:var(--azul);border-radius:var(--radius-sm);padding:14px;text-align:center;margin:16px 0;">
+        <div style="font-family:'Syne',sans-serif;font-weight:800;font-size:28px;color:white;">7 de cada 10</div>
+        <div style="font-size:13px;color:rgba(255,255,255,0.85);margin-top:4px;">peruanos trabaja en algo distinto a lo que estudió.<br>VocaTest existe para cambiar eso.</div>
+      </div>
+
+      <div style="margin-bottom:16px;">
+        <div style="font-size:11px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:0.07em;margin-bottom:6px;">Fuentes</div>
+        <span class="fuente-chip">Holland (1997) — Making Vocational Choices</span>
+        <span class="fuente-chip">Super (1953) — A Theory of Vocational Development</span>
+        <span class="fuente-chip">MTPE — Informe de Demanda Laboral 2024</span>
+        <span class="fuente-chip">Ministerio de Educación del Perú</span>
+      </div>
+
+      <button class="btn btn-primary" onclick="cerrarBienvenida()">Entendido — comenzar el test</button>
+      <div style="text-align:center;margin-top:10px;">
+        <button onclick="cerrarBienvenidaNoMostrar()" style="background:none;border:none;color:var(--muted);font-size:12px;cursor:pointer;text-decoration:underline;">No mostrar de nuevo</button>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
