@@ -1249,5 +1249,14 @@ function resetAll(){U={nombre:'',ciudad:'',perfil:'',presiones:{},scores:{R:0,I:
   </div>
 </div>
 
+<script>
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('/vocatest/sw.js')
+      .then(reg => console.log('VocaTest PWA activa'))
+      .catch(err => console.log('SW error:', err));
+  });
+}
+</script>
 </body>
 </html>

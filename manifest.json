@@ -1,0 +1,25 @@
+{
+  "name": "VocaTest Perú",
+  "short_name": "VocaTest",
+  "description": "Test de orientación vocacional para estudiantes peruanos que eligen carrera universitaria.",
+  "start_url": "/vocatest/",
+  "display": "standalone",
+  "background_color": "#0a2463",
+  "theme_color": "#0a2463",
+  "orientation": "portrait",
+  "lang": "es",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
