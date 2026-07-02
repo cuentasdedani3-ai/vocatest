@@ -1,10 +1,10 @@
 // VocaTest Perú — Service Worker
-const CACHE = 'vocatest-v1';
+const CACHE = 'vocatest-v2';
 const ARCHIVOS = [
-  '/vocatest/',
-  '/vocatest/index.html',
-  '/vocatest/icon-192.png',
-  '/vocatest/icon-512.png',
+  '/',
+  '/index.html',
+  '/icon-192.png',
+  '/icon-512.png',
 ];
 
 // Instalar y cachear archivos
@@ -30,7 +30,7 @@ self.addEventListener('fetch', e => {
   e.respondWith(
     caches.match(e.request).then(cached => {
       return cached || fetch(e.request).catch(() =>
-        caches.match('/vocatest/index.html')
+        caches.match('/index.html')
       );
     })
   );
